@@ -1,0 +1,79 @@
+<section class="section">
+  <div class="card">
+
+    <section class="panel panel-default">
+      <div style="text-align: center; padding: 20px 0" class="panel-heading">
+        <h3 class="panel-title mg-auto font-italic"><u>Nhập thông tin</u></h3>
+      </div>
+      <div class="panel-body">
+        <form id="form-1" class="form pb-4">
+          <div class="form-group">
+            <label for="hoTen" class="col-sm-3 control-label">Tên Giáo Viên:</label>
+            <div class="col-sm-9">
+              <input type="text" id="hoTen" name="hoTen" class="form-control" placeholder="Nhập tên...">
+              <label class="text-danger form-message ml-2 mt-2"></label>
+            </div>
+          </div>
+          <!-- <div class="form-group">
+                  <label for="tech" class="col-sm-3 control-label">Giới tính:</label>
+                  <div class="col-sm-3">
+                      <select id="select_cat" name="parentId" class="form-control">
+
+                      </select>
+                      <label class="text-danger form-message ml-2 mt-2"></label>
+                  </div>
+              </div> -->
+
+          <div class="form-group">
+            <label for="gioiTinh" class="col-sm-3 control-label">Giới tính:</label>
+            <div class="col-sm-3">
+              <select id="gioiTinh" name="gioiTinh" class="form-control">
+                <option value="">Chọn giới tính</option>
+                <option  value="Nam">Nam</option>
+                <option  value="Nữ">Nữ</option>
+                <option  value="other">Khác</option>
+              </select>
+              <label class="text-danger form-message ml-2 mt-2"></label>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label for="sdt" class="col-sm-3 control-label">Số điện thoại:</label>
+            <div class="col-sm-9">
+              <input type="text" id="sdt" name="SoDienThoai" class="form-control" placeholder="Nhập tên...">
+              <label class="text-danger form-message ml-2 mt-2"></label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="diaChi" class="col-sm-3 control-label">Địa chỉ:</label>
+            <div class="col-sm-9">
+              <input type="text" id="diaChi" name="diaChi" class="form-control" placeholder="Nhập tên...">
+              <label class="text-danger form-message ml-2 mt-2"></label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="tech" class="col-sm-3 control-label">Lớp Học:</label>
+            <div class="col-sm-3">
+                <select id="select_cat" name="id_LopHoc" class="form-control">
+                  <option value="">Chọn lớp học</option>
+                  <option *ngFor="let i of lops" [value]="i.id_LopHoc">{{i.tenLop}}</option>
+                </select>
+                <label class="text-danger form-message ml-2 mt-2"></label>
+            </div>
+        </div>
+          <hr>
+          <button (click)="backPage()" type="button" class="btn btn-danger mx-3 ">Thoát</button>
+          <button class="btn btn-info ">
+            Lưu thông tin
+          </button>
+
+
+        </form>
+
+      </div>
+    </section>
+
+  </div>
+</section>

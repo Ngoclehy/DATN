@@ -1,0 +1,41 @@
+
+    .cards.active {
+        border: 1px solid orangered;
+    }
+    .breadcrumb-item.active{
+        border: none;
+    }
+    .form-search {
+        padding-bottom: 20px;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .message {
+        z-index: 99;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .message1 {
+        z-index: 99;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .btn-trash:hover + .message {
+        opacity: 1;
+        visibility: visible;
+        transition: linear .3s;
+    }
+
+    .btn-delete:hover + .message1 {
+        opacity: 1;
+        visibility: visible;
+        transition: linear .3s;
+    }
+
+    .cards {
+        cursor: pointer;
+    }
+

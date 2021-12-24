@@ -1,0 +1,454 @@
+<div>
+  <div class="main-content container-fluid">
+    <div class="page-title">
+      <h3>Chi tiết lớp học</h3>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-left">
+          <li class="breadcrumb-item">
+            <a href="/Sales_Invoice/index">Quản lý lớp học</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            Chi tiết lớp học
+          </li>
+        </ol>
+      </nav>
+    </div>
+    <section class="section">
+      <div class="card">
+        <div class="container">
+          <div class="card-body">
+            <h5 class="mb-4">Thông tin lớp học:</h5>
+            <div class="row">
+              <label class="col-sm-2 col-form-label">Tên lớp học:</label>
+              <div class="col-sm-10 col-form-label">
+                <p>{{ lop.tenLop }}</p>
+              </div>
+            </div>
+            <div class="row">
+              <label for="inputPassword" class="col-sm-2 col-form-label"
+                >Hệ học:</label
+              >
+              <div class="col-sm-10 col-form-label">
+                <p>{{ lop.hehoc }}</p>
+              </div>
+            </div>
+            <div class="row">
+              <label for="inputPassword" class="col-sm-2 col-form-label"
+                >Số lượng học sinh:</label
+              >
+              <div class="col-sm-10 col-form-label">
+                <p>{{ hocsinh }}</p>
+              </div>
+            </div>
+            <div class="row">
+              <label for="inputPassword" class="col-sm-2 col-form-label"
+                >Số lượng giáo viên:</label
+              >
+              <div class="col-sm-10 col-form-label">
+                <p>{{ giaovien }}</p>
+              </div>
+            </div>
+
+            <div class="row">
+              <label for="inputPassword" class="col-sm-2 col-form-label"
+                >Ghi chú:</label
+              >
+              <div class="col-sm-10 col-form-label">
+                <p></p>
+              </div>
+            </div>
+            <button
+              ng-click="showInfo()"
+              data-id=""
+              data-toggle="modal"
+              data-target="#exampleModal-infor"
+              class="btn btn-outline-success"
+              type="submit"
+            >
+              Chỉnh sửa thông tin
+            </button>
+          </div>
+          <hr />
+          <div class="card-body">
+            <button
+              data-toggle="modal"
+              data-target="#exampleModal-add"
+              class="btn btn-success show-products"
+              type="submit"
+            >
+              Thêm học sinh
+            </button>
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered" id="table1">
+              <thead>
+                <tr>
+                  <th>Tên học sinh</th>
+                  <th>Năm sinh</th>
+                  <th>Giới tính</th>
+                  <th>Tên Phụ Huynh</th>
+                  <th>Số điện thoại</th>
+
+                  <th>Địa chỉ</th>
+                  <th>Ngày nhập học</th>
+                  <th class="text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of lop.hocsinh">
+                  <td>{{ item.hoTen }}</td>
+                  <td>{{ item.namSinh | date: "dd/MM/yyyy" }}</td>
+                  <td>{{ item.gioiTinh }}</td>
+                  <td>{{ item.tenPhuHuynh }}</td>
+                  <td>{{ item.sdt }}</td>
+
+                  <td>{{ item.diaChi }}</td>
+                  <td>{{ item.ngayDangKyHoc | date: "dd/MM/yyyy" }}</td>
+                  <td>
+                    <div
+                      data-toggle="modal"
+                      data-target="#modal-delete-hocsinh"
+                      class="btn-delete"
+                      (click)="onChangeIdHocSinh(item.id_HocSinh)"
+                    >
+                      <i class="btn btn-danger fas fa-trash-alt"></i>
+                    </div>
+
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="6"><b>Tổng học sinh</b></td>
+                  <td colspan="2" class="text-danger">{{ hocsinh }}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+          <hr />
+          <div class="card-body">
+            <a
+              data-toggle="modal"
+              data-target="#exampleModal-addGV"
+              class="btn btn-success show-products "
+              [ngClass]="{'disabled':giaovien>=2}"
+              type="submit"
+            >
+              Thêm giáo viên
+          </a>
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered" id="table1">
+              <thead>
+                <tr>
+                  <th>Tên giáo viên</th>
+                  <th>Giới tính</th>
+                  <th>Số điện thoại</th>
+                  <th>Địa chỉ</th>
+
+                  <th class="text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of lop.giaovien">
+                  <td>{{ item.hoTen }}</td>
+                  <td>{{ item.gioiTinh }}</td>
+                  <td>{{ item.soDienThoai }}</td>
+                  <td>{{ item.diaChi }}</td>
+
+                  <td>
+                    <a
+                    data-toggle="modal"
+                    data-target=#modal-delete-giaovien
+                    class="btn-delete"
+
+                    (click)="onChangeIdGiaoVien(item.id_GiaoVien)"
+                  >
+                      <i class="btn btn-danger fas fa-trash-alt"></i>
+                  </a>
+
+                  </td>
+                </tr>
+              </tbody>
+
+              <tfoot>
+                <tr>
+                  <td colspan="4"><b>Tổng giáo viên</b></td>
+                  <td colspan="2" class="text-danger">{{ giaovien }}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div
+    class="modal fade"
+    id="modal-delete-hocsinh"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Thông báo:</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">Bạn có chắc chắn muốn xóa không ?</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Đóng
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="handleDeleteHocSinh()"
+          >
+            Đồng ý
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="modal fade"
+    id="exampleModal-infor"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa lớp học:</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <form id="form-1">
+            <div class="form-group">
+              <label for="tenLop" class="col-sm-3 control-label"
+                >Tên Lớp:</label
+              >
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  id="tenLop"
+                  name="tenLop"
+                  class="form-control"
+                  [value]="lop.tenLop"
+                />
+                <label class="text-danger form-message ml-2 mt-2"></label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="tenHeHoc">Hệ học: </label>
+              <select id="select_cat" name="id_HeHoc" class="form-control">
+                <option value="">Chọn hệ học</option>
+                <option
+                  *ngFor="let i of hehoc"
+                  [value]="i.id_HeHoc"
+                  [selected]="lop.id_HeHoc == i.id_HeHoc"
+                >
+                  {{ i.tenHeHoc }}
+                </option>
+              </select>
+              <label class="text-danger form-message ml-2 mt-2"></label>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Đóng
+              </button>
+              <button type="submit" class="btn btn-info">Lưu thay đổi</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="modal fade"
+    id="exampleModal-add"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            Danh sách học sinh:
+          </h5>
+
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Tên Học Sinh</th>
+                <th scope="col">Ngày Sinh</th>
+                <th scope="col">Lớp học</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let i of hocsinhOther | paginate: { itemsPerPage: 5, currentPage: p }">
+                <th scope="row">
+                  <input type="checkbox" class="hocsinh-checkbox" name="hocsinh-checkbox" [value]="i.id_HocSinh">
+                </th>
+                <td>{{ i.hoTen }}</td>
+                <td>{{ i.namSinh | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ i.tenLop }}</td>
+              </tr>
+
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Đóng
+          </button>
+          <button
+            type="button"
+            (click)="addHocSinh()"
+            class=" btn btn-primary submit"
+          >
+            Lưu thay đổi
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="modal fade"
+    id="exampleModal-addGV"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            Danh sách giáo viên:
+          </h5>
+
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Tên Giáo Viên</th>
+                <th scope="col">Địa chỉ</th>
+                <th scope="col">Lớp dạy</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let i of giaovienOther | paginate: { itemsPerPage: 5, currentPage: p }">
+                <th scope="row">
+                  <input type="checkbox" class="giaovien-checkbox" name="giaovien-checkbox" [value]="i.id_GiaoVien">
+                </th>
+                <td>{{ i.hoTen }}</td>
+                <td>{{ i.diaChi  }}</td>
+                <td>{{ i.tenLop }}</td>
+              </tr>
+
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Đóng
+          </button>
+          <button
+            type="button"
+            (click)="addGiaoVien()"
+            class=" btn btn-primary submit"
+          >
+            Lưu thay đổi
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+  class="modal fade"
+  id="modal-delete-giaovien"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Thông báo:</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">Bạn có chắc chắn muốn xóa không ?</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Đóng
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="handleDeleteGiaoVien()"
+        >
+          Đồng ý
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

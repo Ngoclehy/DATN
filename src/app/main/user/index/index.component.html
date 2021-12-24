@@ -1,0 +1,105 @@
+<div class="main-content ">
+  <div class="page-title">
+    <h3>Danh sách người dùng</h3>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb breadcrumb-left">
+        <li class="breadcrumb-item"><a href="#">Quản lý người dùng</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Dánh sách người dùng</li>
+      </ol>
+    </nav>
+  </div>
+  <section class="section">
+    <div class="card">
+      <div class=" card-header bg-white">
+        <u style="color: #0dcaf0; cursor: pointer;" class="font-italic"> Bảng danh sách người dùng</u>
+      </div>
+      <a class="pt-3 pb-1 col-3" href="main/hehoc/create">
+        <button type="button" class=" btn btn-success"><i class="mr-2  fas fa-plus"></i>Thêm người dùng</button>
+      </a>
+      <div class="navbar  bg-white">
+
+        <div class="form-group pull-left page-size form-inline">
+          <select id="ddlPageSize" class="form-control control-color" ng-model="pageSize" [(ngModel)]="itemOnPage">
+
+            <option value="5">5</option>
+
+            <option value="10">10</option>
+
+            <option value="25">25</option>
+
+            <option value="50">50</option>
+
+          </select>
+
+        </div>
+        <form class="d-flex">
+          <input class="form-control " type="search" [(ngModel)]="keySearch" placeholder="Search" name="Search"
+            aria-label="Search">
+          <button class="btn btn-outline-success ml-2" type="submit" (click)="handleSearch()">Search</button>
+
+        </form>
+      </div>
+      <div class="pt-0 card-body">
+        <table class='table table-bordered ' id="table1">
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>Tên người dùng</th>
+              <th>Email</th>
+              <th>Địa chỉ</th>
+              <th>Số điện thoại</th>
+              <th>Quyền được dùng</th>
+              <th width="10%">
+                Action
+              </th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of collection | paginate: { itemsPerPage: itemOnPage, currentPage: p }">
+              <td>{{item.index+1}}</td>
+              <td> {{item.name}}</td>
+              <td>{{item.email}}</td>
+              <td> {{item.address}}</td>
+              <td> {{item.phoneNumber}}</td>
+              <td> {{item.subdata}}</td>
+              <td class="d-flex">
+                <a [routerLink]="['/main/user/permision/'+item.userId]">
+                  <div data-toggle="modal" data-target="#exampleModal" class="btn-trash mr-2" >
+                    <i class="btn btn-warning fas fa-key"></i>
+                  </div>
+                </a>
+
+              <a  [routerLink]="['/main/user/update/'+item.userId]">
+                <div data-toggle="modal" data-target="#exampleModal" class="btn-trash mr-2">
+                  <i class="btn btn-primary far fa-edit"></i>
+                </div>
+              </a>
+                <div data-id="" data-toggle="modal" data-target="#exampleModal1" class="btn-delete" href="">
+                  <i class="btn btn-danger fas fa-trash-alt"></i>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+
+          </tfoot>
+
+        </table>
+        <div *ngIf="collection.length < 1" class="alert alert-danger" role="alert">
+          Không tìm thấy bản ghi phù hợp!
+        </div>
+        <div class="paginate">
+          <pagination-controls class="pull-right" (pageChange)="p = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+
+
+</div>
+
+
+

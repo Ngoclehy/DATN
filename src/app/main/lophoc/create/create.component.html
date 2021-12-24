@@ -1,0 +1,46 @@
+<section class="section">
+  <div class="card">
+
+      <section class="panel panel-default">
+          <div style="text-align: center; padding: 20px 0" class="panel-heading">
+              <h3 class="panel-title mg-auto font-italic"><u>Nhập thông tin</u></h3>
+          </div>
+          <div class="panel-body">
+            <form id="form-1" class="form pb-4">
+              <div class="form-group">
+                  <label for="tenLop" class="col-sm-3 control-label">Tên lớp học :</label>
+                  <div class="col-sm-9">
+                      <input type="text" id="tenLop" name="tenLop" class="form-control" placeholder="Nhập tên...">
+                      <label class="text-danger form-message ml-2 mt-2"></label>
+                  </div>
+              </div>
+              <div class="form-group">
+                <label for="tenHeHoc">Hệ học: </label>
+                <select id="select_cat" name="id_HeHoc" class="form-control col-sm-3">
+                  <option value="">Chọn hệ học</option>
+                  <option
+                    *ngFor="let i of hehocs"
+                    [value]="i.id_HeHoc"
+                    [selected]="hehocs.id_HeHoc == i.id_HeHoc"
+                  >
+                    {{ i.tenHeHoc }}
+                  </option>
+                </select>
+                <label class="text-danger form-message ml-2 mt-2"></label>
+              </div>
+
+              <hr>
+              <button (click)="backPage()" type="button" class="btn btn-danger mx-3 ">Thoát</button>
+              <button class="btn btn-info ">
+                  Lưu thông tin
+              </button>
+
+
+          </form>
+
+          </div>
+      </section>
+
+  </div>
+</section>
+
