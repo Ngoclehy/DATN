@@ -39,6 +39,10 @@ const routes: Routes = [
         path: 'khoanthu',
         loadChildren: () => import('./khoanthu/khoanthu.module').then(m => m.KhoanthuModule)
       },
+      {
+        path: 'phieuthu',
+        loadChildren: () => import('./phieuthu/phieuthu.module').then(m => m.PhieuthuModule)
+      },
 
     ]
   }

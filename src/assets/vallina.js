@@ -14,6 +14,7 @@ function Validator(options) {
 
     // Hàm thực hiện validate
     function validate(inputElement, rule) {
+        
         var errorElement = getParent(inputElement, options.formGroupSelector).querySelector(options.errorSelector);
         var errorMessage;
 
@@ -62,7 +63,6 @@ function Validator(options) {
             // Lặp qua từng rules và validate
             options.rules.forEach(function (rule) {
                 var inputElement = formElement.querySelector(rule.selector);
-               console.log(inputElement)
                 var isValid = validate(inputElement, rule);
                 if (!isValid) {
                     isFormValid = false;
@@ -193,7 +193,6 @@ Validator.isExist = function (selector, store, message) {
     return {
         selector: selector,
         test: function (value) {
-            console.log(store)
             return store.indexOf(value) == -1 ? undefined :  message || `Giá trị trường này đã tồn tại.`;
         }
     };

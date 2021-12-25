@@ -94,17 +94,17 @@ export class Menu{
     {
       name:'Quản lý phiếu thu',
       icon:'fas fa-fw fa-tachometer-alt',
-      route:'/main/khoanthu/index',
+      route:'/main/phieuthu/index',
       children:[
         {
           name:'Hiển thị phiếu thu',
           icon:'fas fa-fw fa-tachometer-alt',
-          route:'/main/khoanthu/index',
+          route:'/main/phieuthu/index',
         },
         {
           name:'Thêm phiếu thu',
           icon:'fas fa-fw fa-tachometer-alt',
-          route:'/main/khoanthu/create',
+          route:'/main/phieuthu/create',
         },
 
       ]

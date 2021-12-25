@@ -35,7 +35,6 @@ export class DataService {
               return;
             }
             this.error();
-
           }
         })
     )
@@ -50,7 +49,6 @@ export class DataService {
               return;
             }
             this.error();
-
           }
         })
     )
