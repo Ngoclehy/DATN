@@ -5,19 +5,22 @@ import { UpdateComponent } from './update/update.component';
 import { IndexComponent } from './index/index.component';
 import { KhoanthuComponent } from './khoanthu.component';
 import { KhoanThuRoutingModule } from './khoanthu-routing.module';
-
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
-    //KhoanthuComponent,
+    KhoanthuComponent,
     CreateComponent,
     UpdateComponent,
     IndexComponent
   ],
   imports: [
     CommonModule,
-    KhoanThuRoutingModule
+    KhoanThuRoutingModule,
+    FormsModule,
+    NgxPaginationModule,
+    ReactiveFormsModule,
   ]
 })
 export class KhoanthuModule { }

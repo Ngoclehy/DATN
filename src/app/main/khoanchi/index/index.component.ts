@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/core/services/data.service';
-declare var $: any;
+
+declare const $: any;
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
@@ -12,14 +13,14 @@ export class IndexComponent implements OnInit {
   itemOnPage: number = 5;
   collection: any[] = [];
   keySearch: any = '';
-  idKhoanThu: string = '';
+  idkhoanchi: string = '';
 
   handleSearch() {
-    this.dataService.GET('api/khoanthu/getAll').subscribe((res: any) => {
+    this.dataService.GET('api/khoanchi/getAll').subscribe((res: any) => {
       this.collection = [];
       res.forEach((e: any) => {
         if (
-          e.tenKhoanThu.toLowerCase().includes(this.keySearch.toLowerCase())
+          e.tenKhoanChi.toLowerCase().includes(this.keySearch.toLowerCase())
         ) {
           this.collection.push(e);
         }
@@ -27,27 +28,29 @@ export class IndexComponent implements OnInit {
       this.collection = this.collection.map((e: any, i: any) => {
         return {
           index: i,
-          id_KhoanThu: e.id_KhoanThu,
-          tenKhoanThu: e.tenKhoanThu,
-          soTienThu: e.soTienThu,
+          id_KhoanChi: e.id_KhoanChi,
+          tenKhoanChi: e.tenKhoanChi,
+          soTienChi: e.soTienChi,
         };
       });
     });
   }
 
   GetId(id: string) {
-    this.idKhoanThu = id;
+    this.idkhoanchi = id;
   }
 
   handleDelete() {
-    this.dataService.DELETE('api/khoanthu/delete', 'id', this.idKhoanThu).subscribe(res=>this.getData());
-    
+    this.dataService
+      .DELETE('api/khoanchi/delete', 'id', this.idkhoanchi)
+      .subscribe((res) => this.getData());
+
     $('#delete-kt-modal').modal('hide');
   }
 
   getData() {
-    this.dataService.GET('api/khoanthu/getAll').subscribe((khoanthus: any) => {
-      this.collection = khoanthus.map((value: any, index: number) => ({
+    this.dataService.GET('api/khoanchi/getAll').subscribe((khoanchis: any) => {
+      this.collection = khoanchis.map((value: any, index: number) => ({
         ...value,
         index,
       }));

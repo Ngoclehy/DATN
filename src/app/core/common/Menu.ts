@@ -1,168 +1,175 @@
-export class Menu{
-  public static menus=[
-
+export class Menu {
+  public static menus = [
     {
-      name:'Quản lý hệ học',
-      icon:'fas fa-fw fa-tachometer-alt',
-      route:'/main/hehoc/index',
-      children:[
+      name: 'Quản lý hệ học',
+      icon: 'fas fa-fw fa-tachometer-alt',
+      route: '/main/hehoc/index',
+      children: [
         {
-          name:'Hiển thị hệ học',
-          icon:'fas fa-fw fa-tachometer-alt',
-          route:'/main/hehoc/index',
+          name: 'Hiển thị hệ học',
+          icon: 'fas fa-fw fa-tachometer-alt',
+          route: '/main/hehoc/index',
         },
         {
-          name:'Thêm hệ học',
-          icon:'fas fa-fw fa-tachometer-alt',
-          route:'/main/hehoc/create',
+          name: 'Thêm hệ học',
+          icon: 'fas fa-fw fa-tachometer-alt',
+          route: '/main/hehoc/create',
         },
-
-      ]
+      ],
     },
     {
-      name:'Quản lý học sinh',
-      icon:'fas fa-fw fa-tachometer-alt',
-      route:'/main/hocsinh/index',
-      children:[
+      name: 'Quản lý lớp học',
+      icon: 'fas fa-fw fa-tachometer-alt',
+      route: '/main/lophoc/index',
+      children: [
         {
-          name:'Hiển thị học sinh',
-          icon:'fas fa-fw fa-tachometer-alt',
-          route:'/main/hocsinh/index',
+          name: 'Hiển thị lớp học',
+          icon: 'fas fa-fw fa-tachometer-alt',
+          route: '/main/lophoc/index',
         },
         {
-          name:'Thêm học sinh',
-          icon:'fas fa-fw fa-tachometer-alt',
-          route:'/main/hocsinh/create',
+          name: 'Thêm lớp học',
+          icon: 'fas fa-fw fa-tachometer-alt',
+          route: '/main/lophoc/create',
         },
-
-      ]
+      ],
     },
     {
-      name:'Quản lý giáo viên',
-      icon:'fas fa-fw fa-tachometer-alt',
-      route:'/main/giaovien/index',
-      children:[
+      name: 'Quản lý giáo viên',
+      icon: 'fas fa-fw fa-tachometer-alt',
+      route: '/main/giaovien/index',
+      children: [
         {
-          name:'Hiển thị giáo viên',
-          icon:'fas fa-fw fa-tachometer-alt',
-          route:'/main/giaovien/index',
+          name: 'Hiển thị giáo viên',
+          icon: 'fas fa-fw fa-tachometer-alt',
+          route: '/main/giaovien/index',
         },
         {
-          name:'Thêm giáo viên',
-          icon:'fas fa-fw fa-tachometer-alt',
-          route:'/main/giaovien/create',
+          name: 'Thêm giáo viên',
+          icon: 'fas fa-fw fa-tachometer-alt',
+          route: '/main/giaovien/create',
         },
-
-      ]
+      ],
     },
     {
-      name:'Quản lý lớp học',
-      icon:'fas fa-fw fa-tachometer-alt',
-      route:'/main/lophoc/index',
-      children:[
+      name: 'Quản lý học sinh',
+      icon: 'fas fa-fw fa-tachometer-alt',
+      route: '/main/hocsinh/index',
+      children: [
         {
-          name:'Hiển thị lớp học',
-          icon:'fas fa-fw fa-tachometer-alt',
-          route:'/main/lophoc/index',
+          name: 'Hiển thị học sinh',
+          icon: 'fas fa-fw fa-tachometer-alt',
+          route: '/main/hocsinh/index',
         },
         {
-          name:'Thêm lớp học',
-          icon:'fas fa-fw fa-tachometer-alt',
-          route:'/main/lophoc/create',
+          name: 'Thêm học sinh',
+          icon: 'fas fa-fw fa-tachometer-alt',
+          route: '/main/hocsinh/create',
         },
+      ],
+    },
 
-      ]
+    {
+      name: 'Quản lý khoản thu',
+      icon: 'fas fa-fw fa-tachometer-alt',
+      route: '/main/khoanthu/index',
+      children: [
+        {
+          name: 'Hiển thị khoản thu',
+          icon: 'fas fa-fw fa-tachometer-alt',
+          route: '/main/khoanthu/index',
+        },
+        {
+          name: 'Thêm khoản thu',
+          icon: 'fas fa-fw fa-tachometer-alt',
+          route: '/main/khoanthu/create',
+        },
+      ],
     },
     {
-      name:'Quản lý phiếu điểm danh',
-      icon:'fas fa-fw fa-tachometer-alt',
-      route:'/main/diemdanh/index',
-      children:[
+      name: 'Quản lý phiếu thu',
+      icon: 'fas fa-fw fa-tachometer-alt',
+      route: '/main/phieuthu/index',
+      children: [
         {
-          name:'Hiển thị phiếu điểm danh',
-          icon:'fas fa-fw fa-tachometer-alt',
-          route:'/main/diemdanh/index',
+          name: 'Hiển thị phiếu thu',
+          icon: 'fas fa-fw fa-tachometer-alt',
+          route: '/main/phieuthu/index',
         },
         {
-          name:'Thêm phiếu điểm danh',
-          icon:'fas fa-fw fa-tachometer-alt',
-          route:'/main/diemdanh/create',
+          name: 'Thêm phiếu thu',
+          icon: 'fas fa-fw fa-tachometer-alt',
+          route: '/main/phieuthu/create',
         },
-
-      ]
+      ],
     },
     {
-      name:'Quản lý phiếu thu',
-      icon:'fas fa-fw fa-tachometer-alt',
-      route:'/main/phieuthu/index',
-      children:[
+      name: 'Quản lý khoản chi',
+      icon: 'fas fa-fw fa-tachometer-alt',
+      route: '/main/khoanchi/index',
+      children: [
         {
-          name:'Hiển thị phiếu thu',
-          icon:'fas fa-fw fa-tachometer-alt',
-          route:'/main/phieuthu/index',
+          name: 'Hiển thị khoản chi',
+          icon: 'fas fa-fw fa-tachometer-alt',
+          route: '/main/khoanchi/index',
         },
         {
-          name:'Thêm phiếu thu',
-          icon:'fas fa-fw fa-tachometer-alt',
-          route:'/main/phieuthu/create',
+          name: 'Thêm khoản chi',
+          icon: 'fas fa-fw fa-tachometer-alt',
+          route: '/main/khoanchi/create',
         },
-
-      ]
+      ],
     },
     {
-      name:'Quản lý phiếu chi',
-      icon:'fas fa-fw fa-tachometer-alt',
-      route:'/main/phieuchi/index',
-      children:[
+      name: 'Quản lý phiếu chi',
+      icon: 'fas fa-fw fa-tachometer-alt',
+      route: '/main/phieuchi/index',
+      children: [
         {
-          name:'Hiển thị phiếu chi',
-          icon:'fas fa-fw fa-tachometer-alt',
-          route:'/main/phieuchi/index',
+          name: 'Hiển thị phiếu chi',
+          icon: 'fas fa-fw fa-tachometer-alt',
+          route: '/main/phieuchi/index',
         },
         {
-          name:'Thêm phiếu chi',
-          icon:'fas fa-fw fa-tachometer-alt',
-          route:'/main/phieuchi/create',
+          name: 'Thêm phiếu chi',
+          icon: 'fas fa-fw fa-tachometer-alt',
+          route: '/main/phieuchi/create',
         },
-
-      ]
+      ],
     },
     {
-      name:'Quản lý  người dùng',
-      icon:'fas fa-fw fa-tachometer-alt',
-      route:'/main/user/index',
-      children:[
+      name: 'Quản lý  người dùng',
+      icon: 'fas fa-fw fa-tachometer-alt',
+      route: '/main/user/index',
+      children: [
         {
-          name:'Hiển thị  người dùng',
-          icon:'fas fa-fw fa-tachometer-alt',
-          route:'/main/user/index',
+          name: 'Hiển thị  người dùng',
+          icon: 'fas fa-fw fa-tachometer-alt',
+          route: '/main/user/index',
         },
         {
-          name:'Thêm người dùng',
-          icon:'fas fa-fw fa-tachometer-alt',
-          route:'/main/user/create',
+          name: 'Thêm người dùng',
+          icon: 'fas fa-fw fa-tachometer-alt',
+          route: '/main/user/create',
         },
-
-      ]
+      ],
     },
     {
-      name:'Quản lý quyền',
-      icon:'fas fa-fw fa-tachometer-alt',
-      route:'/main/permision/index',
-      children:[
+      name: 'Quản lý quyền',
+      icon: 'fas fa-fw fa-tachometer-alt',
+      route: '/main/permision/index',
+      children: [
         {
-          name:'Hiển thị quyền',
-          icon:'fas fa-fw fa-tachometer-alt',
-          route:'/main/permision/index',
+          name: 'Hiển thị quyền',
+          icon: 'fas fa-fw fa-tachometer-alt',
+          route: '/main/permision/index',
         },
         {
-          name:'Thêm  quyền',
-          icon:'fas fa-fw fa-tachometer-alt',
-          route:'/main/permision/create',
+          name: 'Thêm  quyền',
+          icon: 'fas fa-fw fa-tachometer-alt',
+          route: '/main/permision/create',
         },
-
-      ]
-    }
-
-  ]
+      ],
+    },
+  ];
 }

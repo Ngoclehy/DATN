@@ -1,0 +1,114 @@
+<div class="main-content ">
+    <div class="page-title">
+        <h3>Danh sách khoản chi</h3>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-left">
+                <li class="breadcrumb-item"><a>Quản lý khoản chi</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Dánh sách khoản chi</li>
+            </ol>
+        </nav>
+    </div>
+    <section class="section">
+        <div class="card">
+            <div class=" card-header bg-white">
+                <u style="color: #0dcaf0; cursor: pointer;" class="font-italic"> Bảng danh sách khoản chi</u>
+            </div>
+            <a class="pt-3 pb-1 col-3" routerLink="/main/khoanchi/create">
+                <button type="button" class=" btn btn-success"><i class="mr-2  fas fa-plus"></i>Thêm khoản chi</button>
+            </a>
+            <div class="navbar  bg-white">
+
+                <div class="form-group pull-left page-size form-inline">
+                    <select id="ddlPageSize" class="form-control control-color" ng-model="pageSize"
+                        [(ngModel)]="itemOnPage">
+
+                        <option value="5">5</option>
+
+                        <option value="10">10</option>
+
+                        <option value="25">25</option>
+
+                        <option value="50">50</option>
+
+                    </select>
+
+                </div>
+                <form class="d-flex">
+                    <input class="form-control " type="search" [(ngModel)]="keySearch" placeholder="Search"
+                        name="Search" aria-label="Search">
+                    <button class="btn btn-outline-success ml-2" type="submit" (click)="handleSearch()">Search</button>
+
+                </form>
+            </div>
+            <div class="pt-0 card-body">
+                <table class='table table-bordered ' id="table1">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên khoản chi</th>
+                            <th>Số tiền</th>
+                            <th width="10%">
+                                Action
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of collection | paginate: { itemsPerPage: itemOnPage, currentPage: p }">
+                            <td>{{item.index+1}}</td>
+                            <td> {{item.tenKhoanChi}}</td>
+                            <td> {{item.soTienChi | number}}đ</td>
+
+                            <td class="d-flex">
+                                <a [routerLink]="['/main/khoanchi/update/'+item.id_KhoanChi]">
+                                    <div data-toggle="modal" data-target="#exampleModal" class="btn-trash mr-2">
+                                        <i class="btn btn-primary far fa-edit"></i>
+                                    </div>
+                                </a>
+
+                                <div data-id="" data-toggle="modal" (click)="GetId(item.id_KhoanChi)"
+                                    data-target="#delete-kt-modal" class="btn-delete" href="">
+                                    <i class="btn btn-danger fas fa-trash-alt"></i>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+
+                    </tfoot>
+
+                </table>
+                <div *ngIf="collection.length < 1" class="alert alert-danger" role="alert">
+                    Không tìm thấy bản ghi phù hợp!
+                </div>
+                <div class="paginate">
+                    <pagination-controls class="pull-right" (pageChange)="p = $event"></pagination-controls>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+
+</div>
+
+
+<div class="modal fade" id="delete-kt-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Bạn có chắc chắn muốn xóa?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Sau khi xóa bạn không thể khôi phục lại.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary btn-cancel-logout" type="button" data-dismiss="modal">Đóng</button>
+                <button class="btn btn-danger" (click)="handleDelete()">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>

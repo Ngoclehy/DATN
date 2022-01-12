@@ -8,6 +8,8 @@ import { PermisionComponent } from './permision/permision.component';
 import { UserComponent } from './user/user.component';
 import { LophocComponent } from './lophoc/lophoc.component';
 import { KhoanthuComponent } from './khoanthu/khoanthu.component';
+import { CanNotAccessComponent } from './can-not-access/can-not-access.component';
+import { KhoanchiComponent } from './khoanchi/khoanchi.component';
 
 
 
@@ -19,11 +21,9 @@ import { KhoanthuComponent } from './khoanthu/khoanthu.component';
     HocsinhComponent,
     UserComponent,
     LophocComponent,
-    KhoanthuComponent,
-
-
-
-
+    CanNotAccessComponent,
+    KhoanchiComponent,
+    
   ],
   imports: [
     CommonModule,

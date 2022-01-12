@@ -1,4 +1,4 @@
-<div>
+<div >
     <div class="main-content container-fluid">
         <div class="page-title">
             <h3>Thêm phiếu thu</h3>
@@ -13,10 +13,12 @@
                 </ol>
             </nav>
         </div>
-        <section class="section">
+        <section class="section" id="content" #content>
             <div class="card">
                 <div class="">
+                    <button class="btn btn-success m-4" (click)="SavePDF()"> Export PDF</button>
                     <form id="formPhieuthu" class="card-body">
+
                         <h5 class="mb-4">Sửa thông tin phiếu thu:</h5>
                         <div class="row align-items-center mb-2 form-group">
                             <label class="col-sm-2 col-form-label">Tên phiếu thu:</label>

@@ -19,7 +19,6 @@ export class IndexComponent implements OnInit {
   hocsinhs=[];
   id_HocSinh:any;
   handleSearch() {
-
     this.DataService.GET('api/hocsinh/getAll').subscribe(
       (res: any) => {
         this.collection = []
@@ -40,8 +39,6 @@ export class IndexComponent implements OnInit {
             sdt:e.sdt,
             ngayDangKyHoc:e.ngayDangKyHoc,
             tenPhuHuynh: e.tenPhuHuynh,
-
-
           }
         })
         console.log(this.collection)
@@ -64,8 +61,6 @@ export class IndexComponent implements OnInit {
   ngOnInit(): void {
     this.DataService.GET('api/hocsinh/getAll').subscribe(
       (hocsinhs: any) => {
-
-
         this.DataService.GET('api/lophoc/getAll').subscribe(
           (lops:any)=>{
             hocsinhs.forEach((hocsinh:any)=>{

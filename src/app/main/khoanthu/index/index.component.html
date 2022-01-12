@@ -1,75 +1,113 @@
-<div>
-  <div class="main-content container-fluid">
-    <div class="page-title">
-      <h3>Chi tiết lớp học</h3>
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb breadcrumb-left">
-          <li class="breadcrumb-item">
-            <a href="/Sales_Invoice/index">Quản lý lớp học</a>
-          </li>
-          <li class="breadcrumb-item active" aria-current="page">
-            Chi tiết lớp học
-          </li>
-        </ol>
-      </nav>
-    </div>
-    <section class="section">
-      <div class="card">
-        <div class="container">
-          <div class="card-body">
-            <h5 class="mb-4">Thông tin lớp học:</h5>
-            <div class="row">
-              <label class="col-sm-2 col-form-label">Tên lớp học:</label>
-              <div class="col-sm-10 col-form-label">
-                <!-- <p>{{ lop.tenLop }}</p> -->
-              </div>
-            </div>
-            <div class="row">
-              <label for="inputPassword" class="col-sm-2 col-form-label"
-                >Hệ học:</label
-              >
-              <div class="col-sm-10 col-form-label">
-                <!-- <p>{{ lop.hehoc }}</p> -->
-              </div>
-            </div>
-            <div class="row">
-              <label for="inputPassword" class="col-sm-2 col-form-label"
-                >Số lượng học sinh:</label
-              >
-              <div class="col-sm-10 col-form-label">
-                <!-- <p>{{ hocsinh }}</p> -->
-              </div>
-            </div>
-            <div class="row">
-              <label for="inputPassword" class="col-sm-2 col-form-label"
-                >Số lượng giáo viên:</label
-              >
-              <div class="col-sm-10 col-form-label">
-                <!-- <p>{{ giaovien }}</p> -->
-              </div>
-            </div>
+<div class="main-content ">
+  <div class="page-title">
+    <h3>Danh sách học sinh</h3>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb breadcrumb-left">
+        <li class="breadcrumb-item"><a>Quản lý khoản thu</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Dánh sách khoản thu</li>
+      </ol>
+    </nav>
+  </div>
+  <section class="section">
+    <div class="card">
+      <div class=" card-header bg-white">
+        <u style="color: #0dcaf0; cursor: pointer;" class="font-italic"> Bảng danh sách khoản thu</u>
+      </div>
+      <a class="pt-3 pb-1 col-3" routerLink="/main/khoanthu/create">
+        <button type="button" class=" btn btn-success"><i class="mr-2  fas fa-plus"></i>Thêm khoản thu</button>
+      </a>
+      <div class="navbar  bg-white">
 
-            <div class="row">
-              <label for="inputPassword" class="col-sm-2 col-form-label"
-                >Ghi chú:</label
-              >
-              <div class="col-sm-10 col-form-label">
-                <p></p>
-              </div>
-            </div>
+        <div class="form-group pull-left page-size form-inline">
+          <select id="ddlPageSize" class="form-control control-color" ng-model="pageSize" [(ngModel)]="itemOnPage">
 
-          </div>
-          <hr />
+            <option value="5">5</option>
+
+            <option value="10">10</option>
+
+            <option value="25">25</option>
+
+            <option value="50">50</option>
+
+          </select>
 
         </div>
+        <form class="d-flex">
+          <input class="form-control " type="search" [(ngModel)]="keySearch" placeholder="Search" name="Search"
+            aria-label="Search">
+          <button class="btn btn-outline-success ml-2" type="submit" (click)="handleSearch()">Search</button>
+
+        </form>
       </div>
-    </section>
-  </div>
+      <div class="pt-0 card-body">
+        <table class='table table-bordered ' id="table1">
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>Tên khoản thu</th>
+              <th>Số tiền</th>
+              <th width="10%">
+                Action
+              </th>
 
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of collection | paginate: { itemsPerPage: itemOnPage, currentPage: p }">
+              <td>{{item.index+1}}</td>
+              <td> {{item.tenKhoanThu}}</td>
+              <td> {{item.soTienThu | number}}đ</td>
 
+              <td class="d-flex">
+                <a [routerLink]="['/main/khoanthu/update/'+item.id_KhoanThu]">
+                  <div data-toggle="modal" data-target="#exampleModal" class="btn-trash mr-2">
+                    <i class="btn btn-primary far fa-edit"></i>
+                  </div>
+                </a>
 
+                <div data-id="" data-toggle="modal" (click)="GetId(item.id_KhoanThu)" data-target="#delete-kt-modal"
+                  class="btn-delete" href="">
+                  <i class="btn btn-danger fas fa-trash-alt"></i>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+
+          </tfoot>
+
+        </table>
+        <div *ngIf="collection.length < 1" class="alert alert-danger" role="alert">
+          Không tìm thấy bản ghi phù hợp!
+        </div>
+        <div class="paginate">
+          <pagination-controls class="pull-right" (pageChange)="p = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+
+  </section>
 
 
 
 </div>
 
+
+<div class="modal fade" id="delete-kt-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Bạn có chắc chắn muốn xóa?</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">Sau khi xóa bạn không thể khôi phục lại.</div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary btn-cancel-logout" type="button" data-dismiss="modal">Đóng</button>
+        <button class="btn btn-danger" (click)="handleDelete()">Xác nhận</button>
+      </div>
+    </div>
+  </div>
+</div>

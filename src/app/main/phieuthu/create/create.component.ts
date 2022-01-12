@@ -121,6 +121,7 @@ export class CreateComponent implements OnInit {
         0
       );
     });
+    $('#modal-ThemKhoanThu').modal('hide')
   }
 
   updateSoLuongKhoanThu(id_KhoanThu: any) {
@@ -148,6 +149,7 @@ export class CreateComponent implements OnInit {
       (init: any, current: any) => init + current.soLuong * current.soTienThu,
       0
     );
+    $('#modal-SuaSoluongKhoanThu').modal('hide')
   }
 
   deleteKhoanThu(id_KhoanThu: any) {

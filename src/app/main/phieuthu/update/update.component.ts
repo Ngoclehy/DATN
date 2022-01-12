@@ -1,16 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { DataService } from 'src/app/core/services/data.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
 
+import { jsPDF } from 'jspdf';
+
 declare const Validator: any, $: any;
+import * as html2pdf from 'html2pdf.js';
+
 @Component({
   selector: 'app-update',
   templateUrl: './update.component.html',
   styleUrls: ['./update.component.css'],
 })
 export class UpdateComponent implements OnInit {
+  @ViewChild('content', { static: false }) el!: ElementRef;
+  public SavePDF(): void {
+    var element = document.getElementById('content');
+    var opt = {
+      margin: 1,
+      filename: 'output.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+    };
+    html2pdf().from(element).set(opt).save();
+  }
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -170,6 +186,9 @@ export class UpdateComponent implements OnInit {
           });
       }, 1000);
     });
+    setTimeout(() => {
+      $('#modal-ThemKhoanThu').modal('hide');
+    }, 1000);
   }
 
   updateSoLuongKhoanThu(id_KhoanThu: any) {
@@ -228,6 +247,7 @@ export class UpdateComponent implements OnInit {
                         })
                         .subscribe((res) => {
                           this.getPhieuThuById();
+                          $('#modal-SuaSoluongKhoanThu').modal('hide');
                         });
                     });
                 }, 1000);
@@ -298,7 +318,7 @@ export class UpdateComponent implements OnInit {
     this.dataService
       .GET('api/CTPhieuThu/getById?id=' + this.id_KhoanThu)
       .subscribe((res: any) => {
-        $('#quantity').val(this.khoanthu.soLuong)
+        $('#quantity').val(this.khoanthu.soLuong);
       });
   }
   ngOnInit(): void {

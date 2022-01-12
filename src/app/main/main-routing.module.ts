@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CanNotAccessComponent } from './can-not-access/can-not-access.component';
 import { MainComponent } from './main.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 const routes: Routes = [
@@ -40,10 +41,21 @@ const routes: Routes = [
         loadChildren: () => import('./khoanthu/khoanthu.module').then(m => m.KhoanthuModule)
       },
       {
+        path: 'khoanchi',
+        loadChildren: () => import('./khoanchi/khoanchi.module').then(m => m.KhoanchiModule)
+      },
+      {
         path: 'phieuthu',
         loadChildren: () => import('./phieuthu/phieuthu.module').then(m => m.PhieuthuModule)
       },
-
+      {
+        path: 'phieuchi',
+        loadChildren: () => import('./phieuchi/phieuchi.module').then(m => m.PhieuchiModule)
+      },
+      {
+        path: '403',
+        component: CanNotAccessComponent
+      },
     ]
   }
 ];

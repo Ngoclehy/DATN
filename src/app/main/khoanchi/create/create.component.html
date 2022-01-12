@@ -1,14 +1,14 @@
 <div>
     <div class="main-content container-fluid">
         <div class="page-title">
-            <h3>Quản lý khoản thu</h3>
+            <h3>Quản lý khoản chi</h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-left">
                     <li class="breadcrumb-item">
-                        <a routerLink="/main/khoanthu/index">Quản lý khoản thu</a>
+                        <a routerLink="/main/khoanchi/index">Quản lý khoản chi</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        Sửa khoản thu
+                        Thêm khoản chi
                     </li>
                 </ol>
             </nav>
@@ -17,15 +17,15 @@
             <div class="card">
                 <div class="">
                     <form class="card-body" [formGroup]="form" (ngSubmit)="handleSubmit(form.value)">
-                        <h5 class="mb-4">Nhập thông tin khoản thu:</h5>
+                        <h5 class="mb-4">Nhập thông tin khoản chi:</h5>
                         <div class="form-group mb-0">
-                            <label for="tenPhieuThu" class="col-sm-2 col-form-label">Tên khoản thu:</label>
+                            <label for="tenPhieuThu" class="col-sm-2 col-form-label">Tên khoản chi:</label>
                             <div class="col-sm-5">
                                 <input class="col-sm-5 col-form-label" type="text" id="tenPhieuThu"
-                                    formControlName="tenKhoanThu" class="form-control" placeholder="Nhập tên...">
+                                    formControlName="tenKhoanChi" class="form-control" placeholder="Nhập tên...">
                                 <small class="form-text  text-danger">
                                     <div class="col alert alert-danger" role="alert"
-                                        *ngIf="(tenKhoanThu?.dirty || tenKhoanThu?.touched) && tenKhoanThu?.errors?.['required']">
+                                        *ngIf="(tenKhoanChi?.dirty || tenKhoanChi?.touched) && tenKhoanChi?.errors?.['required']">
                                         Vui lòng nhập trường này!
                                     </div>
                                 </small>
@@ -34,21 +34,21 @@
                         <div class="form-group">
                             <label for="tenPhieuThu" class="col-sm-2 col-form-label">Số tiền thu:</label>
                             <div class="col-sm-5">
-                                <input class="col-sm-5 col-form-label" type="number" formControlName="soTienThu"
+                                <input class="col-sm-5 col-form-label" type="number" formControlName="soTienChi"
                                     class="form-control" placeholder="Nhập tên...">
                                 <small class="form-text  text-danger">
                                     <div class="col alert alert-danger" role="alert"
-                                        *ngIf="(soTienThu?.dirty || soTienThu?.touched) && soTienThu?.errors?.['required']">
+                                        *ngIf="(soTienChi?.dirty || soTienChi?.touched) && soTienChi?.errors?.['required']">
                                         Vui lòng nhập trường này!
                                     </div>
                                     <div class="col alert alert-danger" role="alert"
-                                        *ngIf="(soTienThu?.dirty || soTienThu?.touched) && soTienThu?.errors?.['pattern']">
+                                        *ngIf="(soTienChi?.dirty || soTienChi?.touched) && soTienChi?.errors?.['pattern']">
                                         Giá trị không hợp lệ vui lòng kiểm tra lại!
                                     </div>
                                 </small>
                             </div>
                         </div>
-                        <a class="btn btn-danger mt-2" routerLink="/main/khoanthu/index">Thoát</a>
+                        <a class="btn btn-danger mt-2" routerLink="/main/khoanchi/index">Thoát</a>
                         <button class="btn btn-info ml-2 mt-2" [disabled]="!form.valid">Lưu thông tin</button>
                     </form>
                     <hr />
