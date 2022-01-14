@@ -3,7 +3,7 @@
     <h3>Danh sách học sinh</h3>
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb breadcrumb-left">
-        <li class="breadcrumb-item"><a href="#">Quản lý học sinh</a></li>
+        <li class="breadcrumb-item"><a routerLink="/main/hocsinh/index">Quản lý học sinh</a></li>
         <li class="breadcrumb-item active" aria-current="page">Dánh sách học sinh</li>
       </ol>
     </nav>
@@ -33,7 +33,7 @@
 
         </div>
         <form class="d-flex">
-          <input class="form-control " type="search" [(ngModel)]="keySearch" placeholder="Search" name="Search"
+          <input class="form-control" type="search" [(ngModel)]="keySearch" placeholder="Search" name="Search"
             aria-label="Search">
           <button class="btn btn-outline-success ml-2" type="submit" (click)="handleSearch()">Search</button>
 

@@ -182,13 +182,12 @@ export class UpdateComponent implements OnInit {
               })
               .subscribe((res) => {
                 this.getPhieuThuById();
+                $('#modal-ThemKhoanThu').modal('hide');
               });
           });
       }, 1000);
     });
-    setTimeout(() => {
-      $('#modal-ThemKhoanThu').modal('hide');
-    }, 1000);
+    
   }
 
   updateSoLuongKhoanThu(id_KhoanThu: any) {

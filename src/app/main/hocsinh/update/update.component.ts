@@ -12,8 +12,6 @@ export class UpdateComponent implements OnInit {
 
   constructor(private route: Router,
     private router: ActivatedRoute,
-    private utilityService: UtilityService,
-
     private notiService: NotificationService,
     private dataService: DataService) { }
     hocsinh: any = {};
@@ -32,7 +30,6 @@ export class UpdateComponent implements OnInit {
               if(hocsinh.id_HocSinh==this.currentId){
                 data.splice(i,1)
               }
-
             }
 
           )

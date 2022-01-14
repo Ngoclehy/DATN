@@ -12,7 +12,6 @@ declare const Validator:any,$:any;
 export class CreateComponent implements OnInit {
 
   constructor(private notificationService:NotificationService,
-    private utilityService:UtilityService,
     private DataService: DataService,
     private route:Router,) { }
     actions: any[]=[];
@@ -68,6 +67,7 @@ export class CreateComponent implements OnInit {
           res.child=response.filter((re:any)=>re.parentId==res.actionId)
         })
         _this.actions=response.filter((res:any)=>res.parentId==0)
+        console.log(_this.actions)
       }, error=>this.notificationService.alertErrorMS("Thông báo",error)
     )
   }

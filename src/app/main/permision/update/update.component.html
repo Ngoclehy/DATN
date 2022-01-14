@@ -1,48 +1,48 @@
 <div class="main-content container-fluid">
-  <div class="page-title">
-      <h3></h3>
-      <nav aria-label="breadcrumb">
-          <ol class="breadcrumb breadcrumb-left">
-              <li class="breadcrumb-item"><a [routerLink]="['/main/permision/index']">Quản lý quyền</a>
-              </li>
-              <li class="breadcrumb-item active" aria-current="page">Thêm quyền</li>
-          </ol>
-      </nav>
-  </div>
-  <section class="panel card">
-      <div style="text-align: center; padding: 20px 0" class="panel-heading">
-          <h3 class="panel-title mg-auto font-italic"><u>Nhập thông tin</u></h3>
-      </div>
-      <div class="panel-body mb-3">
-          <form class="form" id="form-1">
+    <div class="page-title">
+        <h3></h3>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-left">
+                <li class="breadcrumb-item"><a [routerLink]="['/main/permision/index']">Quản lý quyền</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Thêm quyền</li>
+            </ol>
+        </nav>
+    </div>
+    <section class="panel card">
+        <div style="text-align: center; padding: 20px 0" class="panel-heading">
+            <h3 class="panel-title mg-auto font-italic"><u>Nhập thông tin</u></h3>
+        </div>
+        <div class="panel-body mb-3">
+            <form class="form" id="form-1">
 
-              <div class="form-group col col-lg-9">
-                  <label for="password_confirmation" class="form-label">Tên quyền:</label>
-                  <input class="form-control" placeholder="Tên quyền ..." id="name" name="name" [value]="permision.name">
-                  <div class="form-message text-danger mt-2 ml-2">
-                  </div>
-              </div>
+                <div class="form-group col col-lg-9">
+                    <label for="password_confirmation" class="form-label">Tên quyền:</label>
+                    <input class="form-control" placeholder="Tên quyền ..." id="name" name="name"
+                        [value]="permision.name">
+                    <div class="form-message text-danger mt-2 ml-2">
+                    </div>
+                </div>
 
-              <div *ngFor="let i of actions" class="form-check mb-3">
+                <div *ngFor="let i of actions" class="form-check mb-3">
 
-                  <label class="form-check-label font-weight-bold" for="flexCheckDefault">
-                      {{i.actionName}}:
-                  </label>
-                  <div class="d-flex">
-                    <div *ngFor="let j of i.child" class="form-check ml-3">
-                      <input [id]="j.actionCode" class="form-check-input" type="checkbox" name="actionId" [checked]="actionsByPer.indexOf(j.actionCode) !== -1" [value]="j.actionId">
-                      <label class="form-check-label" [for]="j.actionCode">
-                          {{ j.actionName }}
-                      </label>
-                  </div>
-                  </div>
-              </div>
-              <div class="btn btn-danger ml-3 mr-3 mt-4" (click)="backPage()" >Thoát</div>
-              <button class="btn btn-success form-submit mt-4">Lưu thông tin</button>
-          </form>
-      </div>
+                    <label class="form-check-label font-weight-bold" for="flexCheckDefault">
+                        {{i.actionName}}:
+                    </label>
+                    <div class="d-flex">
+                        <div *ngFor="let j of i.child" class="form-check ml-3">
+                            <input [id]="j.actionCode" class="form-check-input" type="checkbox" name="actionId"
+                                [checked]="actionsByPer.indexOf(j.actionCode) !== -1" [value]="j.actionId">
+                            <label class="form-check-label" [for]="j.actionCode">
+                                {{ j.actionName }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn btn-danger ml-3 mr-3 mt-4" (click)="backPage()">Thoát</div>
+                <button class="btn btn-success form-submit mt-4">Lưu thông tin</button>
+            </form>
+        </div>
 
-  </section>
+    </section>
 </div>
-
-
