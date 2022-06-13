@@ -18,6 +18,7 @@ export class MainComponent implements OnInit {
     router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: any) => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         this.currentUrl = event.url;
       });
   }

@@ -1,0 +1,22 @@
+<td>{{ item.index }}</td>
+<td>{{ item.hoTen }}</td>
+<td>{{ item.namSinh | date: "dd-MM-yyyy" }}</td>
+<td>
+  <input
+    type="checkbox"
+    class="form-control"
+    style="width: 24px"
+    [checked]="diHoc === true"
+    (change)="handleChangeDiHoc($event)"
+  />
+</td>
+<td>
+  <input
+    class="form-control"
+    style="width: 24px"
+    type="checkbox"
+    [checked]="diHoc == false ? false : anTrua"
+    [disabled]="diHoc == false"
+    (change)="handleChangeAnTrua($event)"
+  />
+</td>

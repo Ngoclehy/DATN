@@ -1,60 +1,127 @@
 <div>
-    <div class="main-content container-fluid">
-        <div class="page-title">
-            <h3>Quản lý khoản thu</h3>
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb breadcrumb-left">
-                    <li class="breadcrumb-item">
-                        <a routerLink="/main/khoanthu/index">Quản lý khoản thu</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">
-                        Sửa khoản thu
-                    </li>
-                </ol>
-            </nav>
-        </div>
-        <section class="section">
-            <div class="card">
-                <div class="">
-                    <form class="card-body" [formGroup]="form" (ngSubmit)="handleSubmit(form.value)">
-                        <h5 class="mb-4">Nhập thông tin khoản thu:</h5>
-                        <div class="form-group mb-0">
-                            <label for="tenPhieuThu" class="col-sm-2 col-form-label">Tên khoản thu:</label>
-                            <div class="col-sm-5">
-                                <input class="col-sm-5 col-form-label" type="text" id="tenPhieuThu"
-                                    formControlName="tenKhoanThu" class="form-control" placeholder="Nhập tên...">
-                                <small class="form-text  text-danger">
-                                    <div class="col alert alert-danger" role="alert"
-                                        *ngIf="(tenKhoanThu?.dirty || tenKhoanThu?.touched) && tenKhoanThu?.errors?.['required']">
-                                        Vui lòng nhập trường này!
-                                    </div>
-                                </small>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="tenPhieuThu" class="col-sm-2 col-form-label">Số tiền thu:</label>
-                            <div class="col-sm-5">
-                                <input class="col-sm-5 col-form-label" type="number" formControlName="soTienThu"
-                                    class="form-control" placeholder="Nhập tên...">
-                                <small class="form-text  text-danger">
-                                    <div class="col alert alert-danger" role="alert"
-                                        *ngIf="(soTienThu?.dirty || soTienThu?.touched) && soTienThu?.errors?.['required']">
-                                        Vui lòng nhập trường này!
-                                    </div>
-                                    <div class="col alert alert-danger" role="alert"
-                                        *ngIf="(soTienThu?.dirty || soTienThu?.touched) && soTienThu?.errors?.['pattern']">
-                                        Giá trị không hợp lệ vui lòng kiểm tra lại!
-                                    </div>
-                                </small>
-                            </div>
-                        </div>
-                        <a class="btn btn-danger mt-2" routerLink="/main/khoanthu/index">Thoát</a>
-                        <button class="btn btn-info ml-2 mt-2" [disabled]="!form.valid">Lưu thông tin</button>
-                    </form>
-                    <hr />
-
-                </div>
-            </div>
-        </section>
+  <div class="main-content container-fluid">
+    <div class="page-title">
+      <h3>Quản lý khoản thu</h3>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-left">
+          <li class="breadcrumb-item">
+            <a routerLink="/main/khoanthu/index">Quản lý khoản thu</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            Sửa khoản thu
+          </li>
+        </ol>
+      </nav>
     </div>
+    <section class="section">
+      <div class="card">
+        <div class="">
+          <form
+            class="card-body"
+            [formGroup]="form"
+            (ngSubmit)="handleSubmit(form.value)"
+          >
+            <h5 class="mb-4">Nhập thông tin khoản thu:</h5>
+            <div class="form-group mb-0">
+              <label for="tenPhieuThu" class="col-sm-2 col-form-label"
+                >Tên khoản thu:</label
+              >
+              <div class="col-sm-5">
+                <input
+                  class="col-sm-5 col-form-label"
+                  type="text"
+                  id="tenPhieuThu"
+                  formControlName="tenKhoanThu"
+                  class="form-control"
+                  placeholder="Nhập tên..."
+                />
+                <small class="form-text text-danger">
+                  <div
+                    class="col alert alert-danger"
+                    role="alert"
+                    *ngIf="(tenKhoanThu?.dirty || tenKhoanThu?.touched) && tenKhoanThu?.errors?.['required']"
+                  >
+                    Vui lòng nhập trường này!
+                  </div>
+                </small>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="tenPhieuThu" class="col-sm-2 col-form-label"
+                >Số tiền thu:</label
+              >
+              <div class="col-sm-5">
+                <input
+                  class="col-sm-5 col-form-label"
+                  type="number"
+                  formControlName="soTienThu"
+                  class="form-control"
+                  placeholder="Nhập tên..."
+                />
+                <small class="form-text text-danger">
+                  <div
+                    class="col alert alert-danger"
+                    role="alert"
+                    *ngIf="(soTienThu?.dirty || soTienThu?.touched) && soTienThu?.errors?.['required']"
+                  >
+                    Vui lòng nhập trường này!
+                  </div>
+                  <div
+                    class="col alert alert-danger"
+                    role="alert"
+                    *ngIf="(soTienThu?.dirty || soTienThu?.touched) && soTienThu?.errors?.['pattern']"
+                  >
+                    Giá trị không hợp lệ vui lòng kiểm tra lại!
+                  </div>
+                </small>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="tenPhieuThu" class="col-sm-2 col-form-label"
+                >Thuộc hệ học:</label
+              >
+              <div class="col-sm-5">
+                <select class="form-control" formControlName="heHoc">
+                  <option value="">Chọn hệ học</option>
+                  <option
+                    *ngFor="let i of hehocList"
+                    [value]="i.id_HeHoc"
+                    [selected]="i.id_HeHoc == khoanthu.heHoc"
+                  >
+                    {{ i.tenHeHoc }}
+                  </option>
+                  <option value="0" [selected]="0 == khoanthu.heHoc">
+                    Tất cả
+                  </option>
+                </select>
+                <small class="form-text text-danger">
+                  <div
+                    class="col alert alert-danger"
+                    role="alert"
+                    *ngIf="(soTienThu?.dirty || soTienThu?.touched) && soTienThu?.errors?.['required']"
+                  >
+                    Vui lòng nhập trường này!
+                  </div>
+                  <div
+                    class="col alert alert-danger"
+                    role="alert"
+                    *ngIf="(soTienThu?.dirty || soTienThu?.touched) && soTienThu?.errors?.['pattern']"
+                  >
+                    Giá trị không hợp lệ vui lòng kiểm tra lại!
+                  </div>
+                </small>
+              </div>
+            </div>
+            <a class="btn btn-danger mt-2" routerLink="/main/khoanthu/index"
+              >Thoát</a
+            >
+            <button class="btn btn-info ml-2 mt-2" [disabled]="!form.valid">
+              Lưu thông tin
+            </button>
+          </form>
+          <hr />
+        </div>
+      </div>
+    </section>
+  </div>
 </div>

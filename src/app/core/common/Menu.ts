@@ -68,6 +68,23 @@ export class Menu {
         },
       ],
     },
+    {
+      name: 'Quản lý điểm danh',
+      icon: 'fas fa-fw fa-tachometer-alt',
+      route: '/main/diemdanh/index',
+      children: [
+        {
+          name: 'Danh sách điểm danh',
+          icon: 'fas fa-fw fa-tachometer-alt',
+          route: '/main/diemdanh/index',
+        },
+        {
+          name: 'Thêm điểm danh',
+          icon: 'fas fa-fw fa-tachometer-alt',
+          route: '/main/diemdanh/create',
+        },
+      ],
+    },
 
     {
       name: 'Quản lý khoản thu',

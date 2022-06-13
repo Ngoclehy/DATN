@@ -1,0 +1,83 @@
+<div>
+  <div class="main-content container-fluid">
+    <div class="page-title">
+      <h3>Chi tiết phiếu điểm danh</h3>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-left">
+          <li class="breadcrumb-item">
+            <a routerLink="/main/diemdanh/index">Điểm danh</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            Thêm phiếu điểm danh
+          </li>
+        </ol>
+      </nav>
+    </div>
+    <form class="d-flex col-5 px-0 mb-2">
+      <select
+        class="form-control control-color"
+        name="typeDate"
+        style="margin-right: 12px"
+        disabled
+      >
+        <option
+          *ngFor="let i of lophocList"
+          [value]="i.id_LopHoc"
+          [selected]="i.id_LopHoc == lophoc"
+        >
+          {{ i.tenLop }}
+        </option>
+      </select>
+      <input
+        disabled
+        [(ngModel)]="date"
+        type="date"
+        class="form-control"
+        name="date"
+        id=""
+        [ngModel]="date | date: 'yyyy-MM-dd'"
+      />
+    </form>
+    <hr />
+    <section class="section">
+      <div class="card">
+        <div class="">
+          <div class="card-body">
+            <div class="mt-3">
+              <table class="table table-bordered" id="table1">
+                <thead>
+                  <tr>
+                    <th>STT</th>
+                    <th>Tên học sinh</th>
+                    <th>Ngày sinh</th>
+                    <th>Đi học</th>
+                    <th>Ăn trưa</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="let i of diemdanhs"
+                    app-input
+                    [item]="i"
+                    [diHoc]="i.diHoc"
+                    [anTrua]="i.anTrua"
+                    [isUpdate]="true"
+                    (data)="handleGetData($event)"
+                  ></tr>
+                </tbody>
+              </table>
+            </div>
+            <button
+              (click)="handleSubmit()"
+              type="button"
+              class="btn btn-danger mr-2"
+              [routerLink]="['/main/diemdanh/index']"
+            >
+              Thoát
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

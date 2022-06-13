@@ -18,9 +18,12 @@ export class CreateComponent implements OnInit {
     private fb: FormBuilder
   ) {}
 
+  hehocList: any = [];
+
   form = this.fb.group({
     tenKhoanThu: ['', Validators.required],
     soTienThu: ['', [Validators.required, Validators.pattern('[1-9][0-9]*')]],
+    heHoc: ['', Validators.required],
   });
 
   get tenKhoanThu() {
@@ -29,19 +32,26 @@ export class CreateComponent implements OnInit {
   get soTienThu() {
     return this.form.get('soTienThu');
   }
+  get heHoc() {
+    return this.form.get('heHoc');
+  }
+
+  getHeHoc() {
+    this.dataService.GET('api/hehoc/getAll').subscribe((res) => {
+      this.hehocList = res;
+    });
+  }
 
   handleSubmit(formValue: FormGroup) {
     if (this.form.valid) {
-      this.dataService
-        .POST('api/khoanthu/insert', formValue)
-        .subscribe(() => {
-          this.notiService.alertSuccessMS(
-            'Thông báo',
-            'Bạn đã thêm thành công khoản thu.'
-          );
-          this.router.navigate(['/main/khoanthu/index']);
-          return;
-        });
+      this.dataService.POST('api/khoanthu/insert', formValue).subscribe(() => {
+        this.notiService.alertSuccessMS(
+          'Thông báo',
+          'Bạn đã thêm thành công khoản thu.'
+        );
+        this.router.navigate(['/main/khoanthu/index']);
+        return;
+      });
     } else {
       this.notiService.alertWarnMS(
         'Thông báo',
@@ -50,5 +60,7 @@ export class CreateComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getHeHoc();
+  }
 }

@@ -1,11 +1,13 @@
 <div class="main-content">
   <div class="page-title">
-    <h3>Danh sách giáo viên</h3>
+    <h3>Danh sách điểm danh</h3>
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb breadcrumb-left">
-        <li class="breadcrumb-item"><a>Quản lý giáo viên</a></li>
+        <li class="breadcrumb-item">
+          <a [routerLink]="['/main/diemdanh/index']">Quản lý </a>
+        </li>
         <li class="breadcrumb-item active" aria-current="page">
-          Dánh sách giáo viên
+          Dánh sách điểm danh
         </li>
       </ol>
     </nav>
@@ -17,9 +19,9 @@
           Bảng danh sách giáo viên</u
         >
       </div>
-      <a class="pt-3 pb-1 col-3" routerLink="/main/giaovien/create">
+      <a class="pt-3 pb-1 col-3" routerLink="/main/diemdanh/create">
         <button type="button" class="btn btn-success">
-          <i class="mr-2 fas fa-plus"></i>Thêm giáo viên
+          <i class="mr-2 fas fa-plus"></i>Thêm phiếu điểm danh
         </button>
       </a>
       <div class="navbar bg-white">
@@ -28,6 +30,7 @@
             id="ddlPageSize"
             class="form-control control-color"
             ng-model="pageSize"
+            [(ngModel)]="itemOnPage"
           >
             <option value="5">5</option>
 
@@ -39,14 +42,63 @@
           </select>
         </div>
         <form class="d-flex">
+          <select
+            class="form-control control-color"
+            name="typeDate"
+            style="margin-right: 12px"
+            [(ngModel)]="typeDate"
+          >
+            <option value="date">Theo ngày</option>
+
+            <option value="month">Theo tháng</option>
+
+            <option value="year">Theo năm</option>
+          </select>
+
+          <container-element [ngSwitch]="typeDate">
+            <div *ngSwitchCase="['date']">
+              <input
+                [(ngModel)]="date"
+                type="date"
+                class="form-control"
+                name="date"
+                id=""
+              />
+            </div>
+            <div *ngSwitchCase="['month']">
+              <input
+                [(ngModel)]="date"
+                type="month"
+                class="form-control"
+                name="date"
+                id=""
+              />
+            </div>
+            <div *ngSwitchCase="['year']">
+              <input
+                [(ngModel)]="date"
+                name="date"
+                style="width: 100px"
+                placeholder="Nhập số năm cần tìm..."
+                class="form-control"
+                type="number"
+                min="1900"
+                max="2099"
+                step="1"
+                (change)="listenOnChangeYear()"
+              />
+            </div>
+          </container-element>
           <input
             class="form-control"
             type="search"
-            [(ngModel)]="keySearch"
-            placeholder="Search"
+            placeholder="Nhập tên lớp học..."
             name="Search"
             aria-label="Search"
+            [(ngModel)]="searchKey"
+            style="margin-left: 12px"
           />
+
           <button
             class="btn btn-outline-success ml-2"
             type="submit"
@@ -61,13 +113,11 @@
           <thead>
             <tr>
               <th>STT</th>
-              <th>Tên giáo viên</th>
-              <th>Giới tính</th>
-              <th>Số điện thoại</th>
-              <th>Địa chỉ</th>
-              <th>Tên lớp phụ trách</th>
+              <th>Lớp học</th>
+              <th>Thời gian</th>
+              <th>Sĩ số</th>
 
-              <th width="10%">Action</th>
+              <th width="20%">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -77,34 +127,41 @@
                   | paginate: { itemsPerPage: itemOnPage, currentPage: p }
               "
             >
-              <td>{{ item.index + 1 }}</td>
-              <td>{{ item.hoTen }}</td>
-              <td>{{ item.gioiTinh }}</td>
-              <td>{{ item.soDienThoai }}</td>
-              <td>{{ item.diaChi }}</td>
-              <td>{{ item.lop }}</td>
+              <td>{{ item.index }}</td>
+              <td>{{ renderTenLopHoc(item.idLopHoc) }}</td>
+              <td>{{ item.date | date: "dd-MM-yyyy" }}</td>
+              <td>{{ item.diHoc }} / {{ item.siSo }}</td>
 
               <td class="d-flex">
-                <a [routerLink]="['/main/giaovien/update/' + item.id_GiaoVien]">
-                  <div
-                    data-toggle="modal"
-                    data-target="#exampleModal"
-                    class="btn-trash mr-2"
-                  >
-                    <i class="btn btn-primary far fa-edit"></i>
+                <a
+                  [routerLink]="[
+                    '/main/diemdanh/chitiet/' +
+                      encodedString(item.idLopHoc, item.date)
+                  ]"
+                  class="btn btn-info mr-2"
+                >
+                  <div data-toggle="modal" data-target="#exampleModal">
+                    Chi tiết
                   </div>
                 </a>
-
-                <div
-                  data-id=""
+                <button
                   data-toggle="modal"
-                  (click)="GetId(item.id_GiaoVien)"
-                  data-target="#delete-cat-modal"
-                  class="btn-delete"
-                  href=""
+                  [routerLink]="[
+                    '/main/diemdanh/update/' +
+                      encodedString(item.idLopHoc, item.date)
+                  ]"
+                  class="btn btn-primary mr-2"
                 >
-                  <i class="btn btn-danger fas fa-trash-alt"></i>
-                </div>
+                  Sửa
+                </button>
+                <button
+                  data-toggle="modal"
+                  (click)="onDelete(item)"
+                  data-target="#delete-modal"
+                  class="btn btn-danger"
+                >
+                  Xóa
+                </button>
               </td>
             </tr>
           </tbody>
@@ -129,11 +186,12 @@
 </div>
 <div
   class="modal fade"
-  id="delete-cat-modal"
+  id="delete-modal"
   tabindex="-1"
   role="dialog"
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
+  #modal
 >
   <div class="modal-dialog" role="document">
     <div class="modal-content">

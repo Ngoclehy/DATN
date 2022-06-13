@@ -1,3 +1,4 @@
+import { filter } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -16,6 +17,8 @@ export class CreateComponent implements OnInit {
     private dataService: DataService,
     private notiService: NotificationService
   ) {}
+  hocsinhId: any = '';
+  hehocId: any = '';
 
   giaoviens: any = [];
   hocsinhs: any = [];
@@ -30,6 +33,11 @@ export class CreateComponent implements OnInit {
 
   khoanthu: any = {};
   p: number = 1;
+
+  ngayThu: any;
+  phieuThuThang: any;
+
+  labelNotfound = '';
 
   getAllGiaoVien() {
     this.dataService.GET('api/giaovien/getAll').subscribe((giaoviens: any) => {
@@ -65,6 +73,8 @@ export class CreateComponent implements OnInit {
 
   onChangeLopHoc(idLopHoc: any) {
     this.dataService.GET('api/hocsinh/getAll').subscribe((hocsinhs: any) => {
+      this.hocsinhId = '';
+      this.resetKhoanThu();
       if (idLopHoc == '0') {
         this.hocsinhs = hocsinhs;
       } else {
@@ -76,8 +86,34 @@ export class CreateComponent implements OnInit {
   }
 
   getKhoanThu() {
+    if (!this.hocsinhId) {
+      this.labelNotfound = 'Vui lòng chọn học sinh để xem khoản thu';
+      return;
+    }
     this.dataService.GET('api/khoanthu/getAll').subscribe((khoanthus: any) => {
-      this.khoanthus = khoanthus;
+      this.dataService
+        .GET('api/hocsinh/getById?id=' + this.hocsinhId)
+        .subscribe((hocsinh: any) => {
+          this.dataService
+            .GET('api/lophoc/getAll')
+            .subscribe((lophocs: any) => {
+              this.dataService
+                .GET('api/hehoc/getAll')
+                .subscribe((hehocs: any) => {
+                  const lophocByHocSinh = lophocs.find(
+                    (lophoc) => lophoc.id_LopHoc == hocsinh.id_LopHoc
+                  );
+                  const heHocByLopHoc = hehocs.find(
+                    (hehoc) => hehoc.id_HeHoc == lophocByHocSinh.id_HeHoc
+                  );
+
+                  this.hehocId = heHocByLopHoc.id_HeHoc;
+                  this.khoanthus = khoanthus.filter(
+                    (e) => e.heHoc == this.hehocId || e.heHoc == 0
+                  );
+                });
+            });
+        });
     });
   }
 
@@ -120,8 +156,9 @@ export class CreateComponent implements OnInit {
         (init: any, current: any) => init + current.soLuong * current.soTienThu,
         0
       );
+      this.getSoNgayAnSoNgayDiHoc();
     });
-    $('#modal-ThemKhoanThu').modal('hide')
+    $('#modal-ThemKhoanThu').modal('hide');
   }
 
   updateSoLuongKhoanThu(id_KhoanThu: any) {
@@ -149,7 +186,7 @@ export class CreateComponent implements OnInit {
       (init: any, current: any) => init + current.soLuong * current.soTienThu,
       0
     );
-    $('#modal-SuaSoluongKhoanThu').modal('hide')
+    $('#modal-SuaSoluongKhoanThu').modal('hide');
   }
 
   deleteKhoanThu(id_KhoanThu: any) {
@@ -187,13 +224,14 @@ export class CreateComponent implements OnInit {
         Validator.isRequired('#hocSinhPhieuThu'),
         Validator.isRequired('#nguoiNopPhieuThu'),
         Validator.isRequired('#ngayThu'),
+        Validator.isRequired('#phieuThuThang'),
       ],
       onSubmit: (data: any) => {
         if (this.tmpKhoanThu.length < 1) {
           alert('Bạn chưa thêm khoản thu nào cho hóa đơn!');
           return;
         }
-        
+
         data.tongTien = this.totalPrice;
         this.dataService
           .POST('api/phieuthu/insert', { ...data })
@@ -214,7 +252,93 @@ export class CreateComponent implements OnInit {
     });
   }
 
+  convertDate(str) {
+    let arrayDate = str.split('-');
+    arrayDate[1] = arrayDate[1].length == 1 ? `0${arrayDate[1]}` : arrayDate[1];
+    if (arrayDate[2]) {
+      arrayDate[2] =
+        arrayDate[2].length == 1 ? `0${arrayDate[2]}` : arrayDate[2];
+    }
+    return arrayDate.join('-');
+  }
+
+  convertDatetoMonth(date) {
+    const splitDate = date.split('-');
+    splitDate.pop();
+    return splitDate.join('-');
+  }
+
+  countSoNgayAn(data) {
+    let count = 0;
+    data.forEach((e) => {
+      if (e.anTrua == true) {
+        count++;
+      }
+    });
+    return count;
+  }
+  countSoNgayDiHoc(data) {
+    let count = 0;
+    data.forEach((e) => {
+      if (e.diHoc == true) {
+        count++;
+      }
+    });
+    return count;
+  }
+
+  getSoNgayAnSoNgayDiHoc<Type extends { ngayAn: number; ngayDiHoc: number }>() {
+    this.dataService.GET('api/diemdanh/getAll').subscribe((res: any) => {
+      const data = res.filter((e) => {
+        return (
+          this.convertDatetoMonth(e.date) == this.phieuThuThang &&
+          this.hocsinhId == e.idHocSinh
+        );
+      });
+
+      const ngayAn = this.countSoNgayAn(data);
+      const ngayDiHoc = this.countSoNgayDiHoc(data);
+
+      this.tmpKhoanThu = this.tmpKhoanThu.map((e) => {
+        if (e.tenKhoanThu.toLocaleLowerCase().includes('tiền ăn')) {
+          return {
+            ...e,
+            soLuong: ngayAn,
+          };
+        } else if (e.tenKhoanThu.toLocaleLowerCase().includes('học phí')) {
+          return {
+            ...e,
+            soLuong: ngayDiHoc,
+          };
+        } else {
+          return {
+            ...e,
+          };
+        }
+      });
+      this.totalPrice = this.tmpKhoanThu.reduce(
+        (init: any, current: any) => init + current.soLuong * current.soTienThu,
+        0
+      );
+    });
+  }
+
+  resetKhoanThu() {
+    this.tmpKhoanThu = [];
+    this.totalPrice = 0;
+  }
+
   ngOnInit(): void {
+    const today = new Date();
+
+    this.ngayThu = this.convertDate(
+      today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
+    );
+
+    this.phieuThuThang = this.convertDate(
+      today.getFullYear() + '-' + (today.getMonth() + 1)
+    );
+
     this.validate();
     this.getAllGiaoVien();
     this.getAllLopHoc();

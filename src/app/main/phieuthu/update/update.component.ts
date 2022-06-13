@@ -48,6 +48,7 @@ export class UpdateComponent implements OnInit {
     this.dataService
       .GET('api/phieuthu/getById?id=' + this.phieuThuId)
       .subscribe((phieuthu: any) => {
+        console.log(phieuthu);
         this.dataService
           .GET('api/CTPhieuThu/getAll')
           .subscribe((ctphieuthus: any) => {
@@ -187,7 +188,6 @@ export class UpdateComponent implements OnInit {
           });
       }, 1000);
     });
-    
   }
 
   updateSoLuongKhoanThu(id_KhoanThu: any) {
@@ -298,6 +298,7 @@ export class UpdateComponent implements OnInit {
         Validator.isRequired('#hocSinhPhieuThu'),
         Validator.isRequired('#nguoiNopPhieuThu'),
         Validator.isRequired('#ngayThu'),
+        Validator.isRequired('#phieuThuThang'),
       ],
       onSubmit: (data: any) => {
         data.ngayThu = data.ngayThu.split('-').reverse().join('-');
@@ -307,6 +308,7 @@ export class UpdateComponent implements OnInit {
         });
         this.dataService.PUT('api/phieuthu/update', data).subscribe((res) => {
           this.router.navigate([this.router.url]);
+          this.notiService.alertSuccessMS('Thông báo', 'Cập nhập thành công');
         });
       },
     });

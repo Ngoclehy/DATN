@@ -53,6 +53,10 @@ const routes: Routes = [
         loadChildren: () => import('./phieuchi/phieuchi.module').then(m => m.PhieuchiModule)
       },
       {
+        path: 'diemdanh',
+        loadChildren: () => import('./diemdanh/diemdanh.module').then(m => m.DiemdanhModule)
+      },
+      {
         path: '403',
         component: CanNotAccessComponent
       },
