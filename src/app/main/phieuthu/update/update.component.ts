@@ -43,6 +43,7 @@ export class UpdateComponent implements OnInit {
   khoanthus: any;
   khoanthu: any = {};
   id_KhoanThu: any;
+  hocsinhId: any;
 
   getPhieuThuById() {
     this.dataService
@@ -74,7 +75,21 @@ export class UpdateComponent implements OnInit {
                   });
                 });
 
-                this.phieuthu = phieuthu;
+                this.dataService
+                  .GET('api/hocsinh/getById?id=' + phieuthu.id_HocSinh)
+                  .subscribe((hocsinh: any) => {
+                    this.dataService
+                      .GET('api/lophoc/getAll')
+                      .subscribe((lophocs: any) => {
+                        const lopHoc = lophocs.find(
+                          (e) => e.id_LopHoc == hocsinh.id_LopHoc
+                        );
+                        console.log(phieuthu);
+                        phieuthu = { ...phieuthu, id_LopHoc: lopHoc.id_LopHoc };
+                        this.phieuthu = phieuthu;
+                        this.hocsinhId = this.phieuthu.id_HocSinh;
+                      });
+                  });
               });
           });
       });
@@ -124,17 +139,42 @@ export class UpdateComponent implements OnInit {
     });
   }
 
+  handleOnChangeHocSinh(e: any) {
+    this.hocsinhId = e.target.value;
+  }
+
   getKhoanThu() {
     this.dataService.GET('api/khoanthu/getAll').subscribe((khoanthus: any) => {
-      let _khoanthus = [...khoanthus];
-      this.phieuthu.ctphieuthus.forEach((khoanthu: any) => {
-        khoanthus.forEach((val: any, index: any) => {
-          if (khoanthu.id_KhoanThu == val.id_KhoanThu) {
-            khoanthus.splice(index, 1);
-          }
+      this.dataService
+        .GET('api/hocsinh/getById?id=' + this.hocsinhId)
+        .subscribe((hocsinh: any) => {
+          this.dataService
+            .GET('api/lophoc/getAll')
+            .subscribe((lophocs: any) => {
+              this.dataService
+                .GET('api/hehoc/getAll')
+                .subscribe((hehocs: any) => {
+                  const lophocByHocSinh = lophocs.find(
+                    (lophoc) => lophoc.id_LopHoc == hocsinh.id_LopHoc
+                  );
+                  const heHocByLopHoc = hehocs.find(
+                    (hehoc) => hehoc.id_HeHoc == lophocByHocSinh.id_HeHoc
+                  );
+
+                  this.khoanthus = khoanthus.filter(
+                    (e) => e.heHoc == heHocByLopHoc.id_HeHoc || e.heHoc == 0
+                  );
+
+                  this.phieuthu.ctphieuthus.forEach((khoanthu: any) => {
+                    this.khoanthus.forEach((val: any, index: any) => {
+                      if (khoanthu.id_KhoanThu == val.id_KhoanThu) {
+                        this.khoanthus.splice(index, 1);
+                      }
+                    });
+                  });
+                });
+            });
         });
-      });
-      this.khoanthus = khoanthus;
     });
   }
 

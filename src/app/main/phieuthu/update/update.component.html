@@ -75,6 +75,7 @@
                       *ngFor="let lophoc of lophocs"
                       #lophoc
                       [value]="lophoc.id_LopHoc"
+                      [selected]="phieuthu.id_LopHoc == lophoc.id_LopHoc"
                     >
                       {{ lophoc.tenLop }}
                     </option>
