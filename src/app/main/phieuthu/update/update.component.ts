@@ -341,7 +341,6 @@ export class UpdateComponent implements OnInit {
         Validator.isRequired('#phieuThuThang'),
       ],
       onSubmit: (data: any) => {
-        data.ngayThu = data.ngayThu.split('-').reverse().join('-');
         Object.assign(data, {
           id_PhieuThu: this.phieuThuId,
           tongTien: this.phieuthu.tongTien,

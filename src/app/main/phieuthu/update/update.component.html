@@ -93,6 +93,7 @@
                       *ngFor="let hocsinh of hocsinhs"
                       [selected]="hocsinh.id_HocSinh == phieuthu.id_HocSinh"
                       [value]="hocsinh.id_HocSinh"
+                      (change)="handleOnChangeHocSinh($event)"
                     >
                       <div style="min-width: 30px">
                         {{ hocsinh.id_HocSinh }}
@@ -142,6 +143,7 @@
                   id="ngayThu"
                   [ngModel]="phieuthu.ngayThu | date: 'yyyy-MM-dd'"
                   name="ngayThu"
+                  [value]="phieuthu.ngayThu"
                   type="date"
                   class="form-control"
                   placeholder="Ngày thu..."
