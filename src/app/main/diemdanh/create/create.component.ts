@@ -135,13 +135,13 @@ export class CreateComponent implements OnInit {
         anTrua: e.anTrua,
         date: this.date,
       }));
-
-    console.log(newData);
     newData.forEach(async (e) => {
       await this.insertDiemDanh(e);
     });
 
-    this.NotificationService.alertSuccessMS('Thông báo', 'Thêm thành công');
-    this.router.navigate(['/main/diemdanh/index']);
+    setTimeout(() => {
+      this.NotificationService.alertSuccessMS('Thông báo', 'Thêm thành công');
+      this.router.navigate(['/main/diemdanh/index']);
+    }, 500);
   }
 }

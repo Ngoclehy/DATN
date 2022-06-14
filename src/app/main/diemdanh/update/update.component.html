@@ -68,12 +68,18 @@
               </table>
             </div>
             <button
-              (click)="handleSubmit()"
               type="button"
               class="btn btn-danger mr-2"
               [routerLink]="['/main/diemdanh/index']"
             >
               Thoát
+            </button>
+            <button
+              type="button"
+              class="btn btn-success mr-2"
+              (click)="handleSubmit()"
+            >
+              Lưu thay đổi
             </button>
           </div>
         </div>

@@ -133,7 +133,6 @@ export class IndexComponent implements OnInit {
             );
         }
         if (this.searchKey.trim()) {
-          console.log('2');
           tmpData = tmpData.filter((e) =>
             this.renderTenLopHoc(e.idLopHoc).includes(this.searchKey)
           );

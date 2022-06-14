@@ -32,24 +32,24 @@ export class InputComponent implements OnInit {
       this.anTrua = false;
     }
 
-    if (this.isUpdate == true) {
-      this.DataService.PUT('api/diemdanh/update', {
-        ...this.item,
-        diHoc: this.diHoc,
-        anTrua: this.anTrua,
-      }).subscribe((res) => {});
-    }
+    // if (this.isUpdate == true) {
+    //   this.DataService.PUT('api/diemdanh/update', {
+    //     ...this.item,
+    //     diHoc: this.diHoc,
+    //     anTrua: this.anTrua,
+    //   }).subscribe((res) => {});
+    // }
   }
 
   handleChangeAnTrua(e: any) {
     this.anTrua = e.target.checked;
-    if (this.isUpdate == true) {
-      this.DataService.PUT('api/diemdanh/update', {
-        ...this.item,
-        diHoc: this.diHoc,
-        anTrua: this.anTrua,
-      }).subscribe((res) => {});
-    }
+    // if (this.isUpdate == true) {
+    //   this.DataService.PUT('api/diemdanh/update', {
+    //     ...this.item,
+    //     diHoc: this.diHoc,
+    //     anTrua: this.anTrua,
+    //   }).subscribe((res) => {});
+    // }
   }
 
   ngOnInit(): void {}

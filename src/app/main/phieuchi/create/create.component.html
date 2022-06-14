@@ -1,212 +1,289 @@
 <div>
-    <div class="main-content container-fluid">
-        <div class="page-title">
-            <h3>Thêm phiếu chi</h3>
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb breadcrumb-left">
-                    <li class="breadcrumb-item">
-                        <a routerLink="/main/phieuchi/index">Quản lý phiếu chi</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">
-                        Thêm phiếu chi
-                    </li>
-                </ol>
-            </nav>
-        </div>
-        <section class="section">
-            <div class="card">
-                <div class="">
-                    <form id="formPhieuthu" class="card-body">
-                        <h5 class="mb-4">Thêm thông tin phiếu chi:</h5>
-                        <div class="row align-items-center mb-2 form-group">
-                            <label class="col-sm-2 col-form-label">Tên phiếu chi:</label>
-                            <div class="col-sm-6 col-form-label">
-                                <input id="tenPhieuChi" type="text" name="tenPhieuChi" class="form-control" placeholder="Tên phiếu thu...">
-                                <div class="form-message text-danger mt-2"></div>
-                            </div>
-                        </div>
+  <div class="main-content container-fluid">
+    <div class="page-title">
+      <h3>Thêm phiếu chi</h3>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-left">
+          <li class="breadcrumb-item">
+            <a routerLink="/main/phieuthu/index">Quản lý phiếu chi</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            Thêm phiếu chi
+          </li>
+        </ol>
+      </nav>
+    </div>
+    <section class="section">
+      <div class="card">
+        <div class="">
+          <form id="formPhieuchi" class="card-body">
+            <h5 class="mb-4">Thêm thông tin phiếu chi:</h5>
+            <div class="row align-items-center mb-2 form-group">
+              <label class="col-sm-2 col-form-label">Tên phiếu chi:</label>
+              <div class="col-sm-6 col-form-label">
+                <input
+                  id="tenPhieuChi"
+                  type="text"
+                  name="tenPhieuChi"
+                  class="form-control"
+                  placeholder="Tên phiếu chi..."
+                />
+                <div class="form-message text-danger mt-2"></div>
+              </div>
+            </div>
 
-                        <div class="row align-items-center mb-2 form-group">
-                            <label class="col-sm-2 col-form-label">Giáo viên:</label>
-                            <div class="col-sm-4 col-form-label ">
-                                <select id="tenGiaoVienPhieuChi" name="id_GiaoVien" type="text" class="form-control">
-                                    <option value="">Chọn giáo viên</option>
-                                    <!-- <option *ngFor="let giaovien of giaoviens" [value]="giaovien.id_GiaoVien">
-                                        {{giaovien.hoTen }} - {{giaovien.lop || 'Chưa dạy lớp nào'}}</option> -->
+            <div class="row align-items-center mb-2 form-group">
+              <label class="col-sm-2 col-form-label">Giáo viên thu tiền:</label>
+              <div class="col-sm-4 col-form-label">
+                <select
+                  id="tenGiaoVienPhieuChi"
+                  name="id_GiaoVien"
+                  type="text"
+                  class="form-control"
+                >
+                  <option value="">Chọn giáo viên</option>
+                  <option
+                    *ngFor="let giaovien of giaoviens"
+                    [value]="giaovien.id_GiaoVien"
+                  >
+                    {{ giaovien.hoTen }}
+                  </option>
+                </select>
+                <div class="form-message text-danger mt-2"></div>
+              </div>
+            </div>
 
-                                </select>
-                                <div class="form-message text-danger mt-2"></div>
-                            </div>
-                        </div>
-                        <div class="row align-items-center mb-2 form-group">
-                            <label class="col-sm-2 col-form-label ">Ngày chi:</label>
-                            <div class="col-sm-6 col-form-label">
-                                <input id="ngayChi" name="ngayChi" type="date" class="form-control"
-                                    placeholder="Ngày thu...">
-                                <div class="form-message text-danger mt-2"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="row">
-                            <label for="inputPassword" class="col-sm-2 col-form-label">Ghi chú:</label>
-                            <div class="col-sm-6 col-form-label">
-                                <div class="form-floating">
-                                    <textarea name="ghiChu" class="form-control" placeholder="Ghi chú..."
-                                        style="height: 100px"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <button class="btn btn-outline-success" type="submit">
-                            Lưu thông tin
-                        </button>
-                    </form>
-                    <hr />
-                    <div class="card-body">
-                        <button data-toggle="modal" data-target="#modal-ThemKhoanThu"
-                            class="btn btn-success show-products" type="submit">
-                            Thêm khoản thu
-                        </button>
-                        <div class="mt-3">
-                            <table class="table table-bordered" id="table1">
-                                <thead>
-                                    <tr>
-                                        <th>Tên Khoản Thu</th>
-                                        <th>Giá Tiền</th>
-                                        <th>Số Lượng</th>
-                                        <th>Thành tiền</th>
-                                        <th width="20%">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- <tr *ngFor="let i of tmpKhoanThu">
-                                        <td>{{i.tenKhoanThu}}</td>
-                                        <td>{{i.soTienThu | number}}đ</td>
-                                        <td>{{ i.soLuong }}</td>
-                                        <td>{{ i.soTienThu*i.soLuong | number }}đ</td>
-                                        <td>
-                                            <div (click)="updateSoLuongKhoanThu(i.id_KhoanThu)" data-toggle="modal" data-target="#modal-SuaSoluongKhoanThu"
-                                                class="btn btn-delete btn-primary mr-3">
-                                                Chỉnh sửa
-                                            </div>
-                                            <div (click)="deleteKhoanThu(i.id_KhoanThu)" data-toggle="modal" data-target="#modal-delete-hocsinh"
-                                                class="btn-delete btn btn-danger">
-                                                Xóa
-                                            </div>
-
-                                        </td>
-                                    </tr> -->
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="4"><b>Tổng tiền:</b></td>
-                                        <td class="text-danger">
-                                            <!-- {{totalPrice|number }}đ -->
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                    </div>
-
+            <div class="row">
+              <label for="inputPassword" class="col-sm-2 col-form-label"
+                >Ghi chú:</label
+              >
+              <div class="col-sm-6 col-form-label">
+                <div class="form-floating">
+                  <textarea
+                    name="ghiChu"
+                    class="form-control"
+                    placeholder="Ghi chú..."
+                    style="height: 100px"
+                  ></textarea>
                 </div>
+              </div>
             </div>
-        </section>
-    </div>
-
+            <div class="row align-items-center mb-2 form-group">
+              <label class="col-sm-2 col-form-label">Ngày chi:</label>
+              <div class="col-sm-6 col-form-label">
+                <input
+                  id="ngayChi"
+                  name="ngayChi"
+                  type="date"
+                  class="form-control"
+                  placeholder="Ngày chi..."
+                  [ngModel]="ngayChi"
+                />
+                <div class="form-message text-danger mt-2"></div>
+              </div>
+            </div>
+            <button class="btn btn-outline-success" type="submit">
+              Lưu thông tin
+            </button>
+          </form>
+          <hr />
+          <div class="card-body">
+            <button
+              (click)="getKhoanChi()"
+              data-toggle="modal"
+              data-target="#modal-Themkhoanchi"
+              class="btn btn-success show-products"
+              type="submit"
+            >
+              Thêm khoản chi
+            </button>
+            <div class="mt-3">
+              <table class="table table-bordered" id="table1">
+                <thead>
+                  <tr>
+                    <th>Tên Khoản Thu</th>
+                    <th>Giá Tiền</th>
+                    <th>Số Lượng</th>
+                    <th>Thành tiền</th>
+                    <th width="20%">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let i of tmpKhoanChi">
+                    <td>{{ i.tenKhoanChi }}</td>
+                    <td>{{ i.soTienChi | number }}đ</td>
+                    <td>{{ i.soLuong }}</td>
+                    <td>{{ i.soTienChi * i.soLuong | number }}đ</td>
+                    <td>
+                      <div
+                        (click)="updateSoLuongkhoanchi(i.id_KhoanChi)"
+                        data-toggle="modal"
+                        data-target="#modal-SuaSoluongkhoanchi"
+                        class="btn btn-delete btn-primary mr-3"
+                      >
+                        Chỉnh sửa
+                      </div>
+                      <div
+                        (click)="deletekhoanchi(i.id_KhoanChi)"
+                        data-toggle="modal"
+                        data-target="#modal-delete-hocsinh"
+                        class="btn-delete btn btn-danger"
+                      >
+                        Xóa
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="4"><b>Tổng tiền:</b></td>
+                    <td class="text-danger">{{ totalPrice | number }}đ</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 </div>
 
-<div class="modal fade" id="modal-ThemKhoanThu" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                    Danh sách khoản thu:
-                </h5>
+<div
+  class="modal fade"
+  id="modal-Themkhoanchi"
+  tabindex="-1"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Danh sách khoản chi:</h5>
 
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
 
-            <div class="modal-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col"></th>
-                            <th scope="col">Tên Khoản Thu</th>
-                            <th scope="col">Giá Tiền</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- <tr *ngFor="let i of khoanthus | paginate: { itemsPerPage: 5, currentPage: p }">
-                            <th scope="row">
-                                <input type="checkbox" class="khoanthu-checkbox"
-                                    [checked]="tmpKhoanThuId.indexOf(i.id_KhoanThu.toString())!=-1"
-                                    name="khoanthu-checkbox" [value]="i.id_KhoanThu">
-                            </th>
-                            <td>{{ i.tenKhoanThu }}</td>
-                            <td>{{ i.soTienThu | number }}đ</td>
-                        </tr> -->
-
-                    </tbody>
-                </table>
-                <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                    Đóng
-                </button>
-                <button type="button" 
-                
-                class="btn btn-primary submit">
-                    Lưu thay đổi
-                </button>
-            </div>
-        </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Tên Khoản Chi</th>
+              <th scope="col">Giá Tiền</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let i of khoanchis
+                  | paginate: { itemsPerPage: 5, currentPage: p }
+              "
+            >
+              <th scope="row">
+                <input
+                  type="checkbox"
+                  class="khoanchi-checkbox"
+                  [checked]="
+                    tmpKhoanChiId.indexOf(i.id_KhoanChi.toString()) != -1
+                  "
+                  name="khoanchi-checkbox"
+                  [value]="i.id_KhoanChi"
+                />
+              </th>
+              <td>{{ i.tenKhoanChi }}</td>
+              <td>{{ i.soTienChi | number }}đ</td>
+            </tr>
+          </tbody>
+        </table>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Đóng
+        </button>
+        <button
+          type="button"
+          (click)="savekhoanchi()"
+          class="btn btn-primary submit"
+        >
+          Lưu thay đổi
+        </button>
+      </div>
     </div>
+  </div>
 </div>
 
-<div class="modal fade" id="modal-SuaSoluongKhoanThu" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                    Thay đổi số lượng:
-                </h5>
+<div
+  class="modal fade"
+  id="modal-SuaSoluongkhoanchi"
+  tabindex="-1"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Thay đổi số lượng:</h5>
 
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
 
-            <div class="modal-body">
-                <form action="">
-                    <div class="row align-items-center mb-2 form-group">
-                        <label class="col-sm-2 col-form-label">Tên Khoản Thu:</label>
-                        <div class="col-sm-6 col-form-label">
-                            <input disabled type="text"
-                             class="form-control" placeholder="Tên khoản thu...">
-                            <div class="form-message text-danger mt-2"></div>
-                        </div>
-                    </div>
-                    <div class="row align-items-center mb-2 form-group">
-                        <label class="col-sm-2 col-form-label">Số lượng:</label>
-                        <div class="col-sm-4 col-form-label">
-                            <input  type="number" #quantity  class="form-control" placeholder="Tên phiếu thu...">
-                            <div class="form-message text-danger mt-2"></div>
-                        </div>
-                    </div>
-                </form>
+      <div class="modal-body">
+        <form action="">
+          <div class="row align-items-center mb-2 form-group">
+            <label class="col-sm-2 col-form-label">Tên Khoản Thu:</label>
+            <div class="col-sm-6 col-form-label">
+              <input
+                disabled
+                type="text"
+                [value]="khoanchi?.tenKhoanChi"
+                class="form-control"
+                placeholder="Tên khoản thu..."
+              />
+              <div class="form-message text-danger mt-2"></div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                    Đóng
-                </button>
-                <button type="button"  class="btn btn-primary submit">
-                    Lưu thay đổi
-                </button>
+          </div>
+          <div class="row align-items-center mb-2 form-group">
+            <label class="col-sm-2 col-form-label">Số lượng:</label>
+            <div class="col-sm-4 col-form-label">
+              <input
+                type="number"
+                #quantity
+                (keydown)="Check($event)"
+                [value]="khoanchi.soLuong"
+                class="form-control"
+                placeholder="Tên phiếu thu..."
+              />
+              <div class="form-message text-danger mt-2"></div>
             </div>
-        </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Đóng
+        </button>
+        <button
+          type="button"
+          (click)="saveSoLuongkhoanchi(quantity.value)"
+          class="btn btn-primary submit"
+        >
+          Lưu thay đổi
+        </button>
+      </div>
     </div>
+  </div>
 </div>

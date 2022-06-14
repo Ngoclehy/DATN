@@ -11,9 +11,6 @@ import { KhoanthuComponent } from './khoanthu/khoanthu.component';
 import { CanNotAccessComponent } from './can-not-access/can-not-access.component';
 import { KhoanchiComponent } from './khoanchi/khoanchi.component';
 
-
-
-
 @NgModule({
   declarations: [
     MainComponent,
@@ -23,11 +20,7 @@ import { KhoanchiComponent } from './khoanchi/khoanchi.component';
     LophocComponent,
     CanNotAccessComponent,
     KhoanchiComponent,
-    
   ],
-  imports: [
-    CommonModule,
-    MainRoutingModule
-  ]
+  imports: [CommonModule, MainRoutingModule],
 })
-export class MainModule { }
+export class MainModule {}

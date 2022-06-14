@@ -88,7 +88,7 @@ export class UpdateComponent implements OnInit {
   }
 
   private async updateDiemDanh(item) {
-    await this.DataService.POST('api/diemdanh/insert', item).subscribe(
+    await this.DataService.PUT('api/diemdanh/update', item).subscribe(
       async (res) => {
         await res;
         return res;
@@ -107,33 +107,23 @@ export class UpdateComponent implements OnInit {
 
   handleSubmit() {
     let newData = this.data.reverse();
-    newData = newData
-      .reduce((accumulator: any, element) => {
-        if (
-          accumulator.find((e) => {
-            return e.id_HocSinh == element.id_HocSinh;
-          })
-        ) {
-          return accumulator;
-        }
+    newData = newData.reduce((accumulator: any, element) => {
+      if (
+        accumulator.find((e) => {
+          return e.idHocSinh == element.idHocSinh;
+        })
+      ) {
+        return accumulator;
+      }
 
-        return [...accumulator, element];
-      }, [])
-      .filter((e) => e.id_LopHoc == this.lophoc)
-      .map((e) => ({
-        idLopHoc: this.lophoc,
-        idHocSinh: e.id_HocSinh,
-        diHoc: e.diHoc,
-        anTrua: e.anTrua,
-        date: this.date,
-      }));
+      return [...accumulator, element];
+    }, []);
 
-    console.log(newData);
     newData.forEach(async (e) => {
       await this.updateDiemDanh(e);
     });
 
-    this.NotificationService.alertSuccessMS('Thông báo', 'Thêm thành công');
+    this.NotificationService.alertSuccessMS('Thông báo', 'Cập nhập thành công');
     this.router.navigate(['/main/diemdanh/index']);
   }
 }

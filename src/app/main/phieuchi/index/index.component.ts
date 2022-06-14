@@ -39,7 +39,11 @@ export class IndexComponent implements OnInit {
               ...value,
               index: index + 1,
             }))
-            .reverse();
+            .reverse()
+            .map((value: any, index: number) => ({
+              ...value,
+              index: index + 1,
+            }));
           console.log(this.collection);
         }
       );
@@ -76,10 +80,9 @@ export class IndexComponent implements OnInit {
           if (this.date != '') {
             phieuchis = phieuchis.filter((value: any) => {
               const date = new Date(value.ngayChi);
-              const dateArr = date
-                .toLocaleDateString()
-                .split('/')
-              const month = dateArr[0].length <= 1 ? `0${dateArr[0]}` : dateArr[0]
+              const dateArr = date.toLocaleDateString().split('/');
+              const month =
+                dateArr[0].length <= 1 ? `0${dateArr[0]}` : dateArr[0];
               value.ngayChi = `${dateArr[2]}-${month}-${dateArr[1]}`;
               return value.ngayChi == this.date;
             });

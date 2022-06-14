@@ -26,26 +26,6 @@ export class MainComponent implements OnInit {
 
   menus: any = Menu.menus;
   currentUrl: any;
-  ngAfterViewInit() {
-    this.loadScripts();
-  }
-
-  public loadScripts() {
-    this.renderExternalScript('assets/js/sb-admin-2.min.js');
-    this.renderExternalScript('assets/vendor/chart.js/Chart.min.js');
-    setTimeout(() => {
-      this.renderExternalScript('assets/js/demo/chart-area-demo.js');
-      this.renderExternalScript('assets/js/demo/chart-pie-demo.js');
-    }, 500);
-  }
-  public renderExternalScript(src: string) {
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = src;
-    script.async = true;
-    script.defer = true;
-    this.RefElement.nativeElement.appendChild(script);
-  }
 
   ngOnInit(): void {}
 }

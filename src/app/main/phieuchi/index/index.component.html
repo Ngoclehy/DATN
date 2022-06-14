@@ -1,116 +1,176 @@
-<div class="main-content ">
-    <div class="page-title">
-        <h3>Danh sách phiếu chi</h3>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb breadcrumb-left">
-                <li class="breadcrumb-item"><a routerLink="/main/phieuchi/index">Quản lý phiếu chi</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Dánh sách phiếu chi</li>
-            </ol>
-        </nav>
-    </div>
-    <section class="section">
-        <div class="card">
-            <div class=" card-header bg-white">
-                <u style="color: #0dcaf0; cursor: pointer;" class="font-italic"> Bảng danh sách quyền</u>
-            </div>
-            <a class="pt-3 pb-1 col-3" routerLink="/main/phieuchi/create">
-                <button type="button" class=" btn btn-success"><i class="mr-2  fas fa-plus"></i>Thêm phiếu chi </button>
-            </a>
-            <div class="navbar  bg-white">
+<div class="main-content">
+  <div class="page-title">
+    <h3>Danh sách phiếu chi</h3>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb breadcrumb-left">
+        <li class="breadcrumb-item">
+          <a routerLink="/main/phieuchi/index">Quản lý phiếu chi</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+          Dánh sách phiếu chi
+        </li>
+      </ol>
+    </nav>
+  </div>
+  <section class="section">
+    <div class="card">
+      <div class="card-header bg-white">
+        <u style="color: #0dcaf0; cursor: pointer" class="font-italic">
+          Bảng danh sách quyền</u
+        >
+      </div>
+      <a class="pt-3 pb-1 col-3" routerLink="/main/phieuchi/create">
+        <button type="button" class="btn btn-success">
+          <i class="mr-2 fas fa-plus"></i>Thêm phiếu chi
+        </button>
+      </a>
+      <div class="navbar bg-white">
+        <div class="form-group pull-left page-size form-inline">
+          <select
+            id="ddlPageSize"
+            class="form-control control-color"
+            ng-model="pageSize"
+            [(ngModel)]="itemOnPage"
+          >
+            <option value="5">5</option>
 
-                <div class="form-group pull-left page-size form-inline">
-                    <select id="ddlPageSize" class="form-control control-color" ng-model="pageSize"
-                        [(ngModel)]="itemOnPage">
+            <option value="10">10</option>
 
-                        <option value="5">5</option>
+            <option value="25">25</option>
 
-                        <option value="10">10</option>
-
-                        <option value="25">25</option>
-
-                        <option value="50">50</option>
-
-                    </select>
-
-                </div>
-                
-                <form class="d-flex">
-                    <input type="date" (change)="filterDate(date.value)" #date name="" id="" class="form-control mr-3">
-                    <input class="form-control " type="search" [(ngModel)]="keySearch" placeholder="Search"
-                        name="Search" aria-label="Search">
-                    <button class="btn btn-outline-success ml-2" type="submit" (click)="handleSearch()">Search</button>
-                </form>
-            </div>
-            <div class="pt-0 card-body">
-                <table class='table table-bordered ' id="table1">
-                    <thead>
-                        <tr>
-                            <th>STT</th>
-                            <th>Tên Phiếu Chi</th>
-                            <th>Giáo Viên</th>
-                            <th>Tổng tiền</th>
-                            <th>Ngày Chi</th>
-                            <th width="10%">
-                                Action
-                            </th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of collection | paginate: { itemsPerPage: itemOnPage, currentPage: p }">
-                            <td>{{item.index}}</td>
-
-                            <td> {{item.tenPhieuChi}}</td>
-                            <td> {{item.giaovien.hoTen}}</td>
-                            <td> {{item.tongTien | number}}đ</td>
-                            <td> {{item.ngayChi | date: 'dd/MM/yyyy'}}</td>
-                            <td class="d-flex">
-                                <a [routerLink]="['/main/phieuthu/update/'+item.id_PhieuChi]">
-                                    <div data-toggle="modal" data-target="#exampleModal" class="btn-trash mr-2">
-                                        <i class="btn btn-primary far fa-edit"></i>
-                                    </div>
-                                </a>
-                                <div data-id="" data-toggle="modal" data-target="#delete-cat-modal" class="btn-delete"
-                                    href=""
-                                    (click)="onChangeIdPhieuChi(item.id_PhieuChi)"
-                                    >
-                                    <i class="btn btn-danger fas fa-trash-alt"></i>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                    </tfoot>
-                </table>
-                <div *ngIf="collection.length < 1" class="alert alert-danger" role="alert">
-                    Không tìm thấy bản ghi phù hợp!
-                </div>
-                <div class="paginate">
-                    <pagination-controls class="pull-right" (pageChange)="p = $event"></pagination-controls>
-                </div>
-            </div>
+            <option value="50">50</option>
+          </select>
         </div>
 
-    </section>
+        <form class="d-flex">
+          <input
+            type="date"
+            (change)="filterDate(date.value)"
+            #date
+            name=""
+            id=""
+            class="form-control mr-3"
+          />
+          <input
+            class="form-control"
+            type="search"
+            [(ngModel)]="keySearch"
+            placeholder="Search"
+            name="Search"
+            aria-label="Search"
+          />
+          <button
+            class="btn btn-outline-success ml-2"
+            type="submit"
+            (click)="handleSearch()"
+          >
+            Search
+          </button>
+        </form>
+      </div>
+      <div class="pt-0 card-body">
+        <table class="table table-bordered" id="table1">
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>Tên Phiếu Chi</th>
+              <th>Giáo Viên</th>
+              <th>Tổng tiền</th>
+              <th>Ngày Chi</th>
+              <th width="10%">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let item of collection
+                  | paginate: { itemsPerPage: itemOnPage, currentPage: p }
+              "
+            >
+              <td>{{ item.index }}</td>
 
-
-
+              <td>{{ item.tenPhieuChi }}</td>
+              <td>{{ item.giaovien.hoTen }}</td>
+              <td>{{ item.tongTien | number }}đ</td>
+              <td>{{ item.ngayChi | date: "dd/MM/yyyy" }}</td>
+              <td class="d-flex">
+                <a [routerLink]="['/main/phieuchi/update/' + item.id_PhieuChi]">
+                  <div
+                    data-toggle="modal"
+                    data-target="#exampleModal"
+                    class="btn-trash mr-2"
+                  >
+                    <i class="btn btn-primary far fa-edit"></i>
+                  </div>
+                </a>
+                <div
+                  data-id=""
+                  data-toggle="modal"
+                  data-target="#delete-cat-modal"
+                  class="btn-delete"
+                  href=""
+                  (click)="onChangeIdPhieuChi(item.id_PhieuChi)"
+                >
+                  <i class="btn btn-danger fas fa-trash-alt"></i>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot></tfoot>
+        </table>
+        <div
+          *ngIf="collection.length < 1"
+          class="alert alert-danger"
+          role="alert"
+        >
+          Không tìm thấy bản ghi phù hợp!
+        </div>
+        <div class="paginate">
+          <pagination-controls
+            class="pull-right"
+            (pageChange)="p = $event"
+          ></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
-<div class="modal fade" id="delete-cat-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Bạn có chắc chắn muốn xóa?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Sau khi xóa bạn không thể khôi phục lại.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary btn-cancel-logout" type="button" data-dismiss="modal">Đóng</button>
-                <button class="btn btn-danger" (click)="handleDelete()">Xác nhận</button>
-            </div>
-        </div>
+<div
+  class="modal fade"
+  id="delete-cat-modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Bạn có chắc chắn muốn xóa?
+        </h5>
+        <button
+          class="close"
+          type="button"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">Sau khi xóa bạn không thể khôi phục lại.</div>
+      <div class="modal-footer">
+        <button
+          class="btn btn-secondary btn-cancel-logout"
+          type="button"
+          data-dismiss="modal"
+        >
+          Đóng
+        </button>
+        <button class="btn btn-danger" (click)="handleDelete()">
+          Xác nhận
+        </button>
+      </div>
     </div>
+  </div>
 </div>
