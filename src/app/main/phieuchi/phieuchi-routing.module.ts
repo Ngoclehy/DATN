@@ -1,3 +1,4 @@
+import { RolesGuard } from 'src/app/core/guard/roles.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateComponent } from './create/create.component';
@@ -8,14 +9,17 @@ const routes: Routes = [
   {
     path: 'index',
     component: IndexComponent,
+    canActivate: [RolesGuard],
   },
   {
     path: 'create',
     component: CreateComponent,
+    canActivate: [RolesGuard],
   },
   {
     path: 'update/:id',
     component: UpdateComponent,
+    canActivate: [RolesGuard],
   },
 ];
 

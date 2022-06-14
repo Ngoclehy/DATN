@@ -33,7 +33,7 @@ export class IndexComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   this.getData()
+    this.getData();
   }
 
   getData() {
@@ -76,7 +76,6 @@ export class IndexComponent implements OnInit {
                     ...res,
                   };
                 });
-                console.log(this.collection)
               }
             );
           }
@@ -85,14 +84,15 @@ export class IndexComponent implements OnInit {
     });
   }
   handleDelete() {
-    this.DataService.DELETE('api/lophoc/delete', 'Id', this.id_LopHoc).subscribe(
-      (res: any) => {
-        console.log(1)
-        this.getData();
-        this.close();
-
-      }
-    );
+    this.DataService.DELETE(
+      'api/lophoc/delete',
+      'Id',
+      this.id_LopHoc
+    ).subscribe((res: any) => {
+      console.log(1);
+      this.getData();
+      this.close();
+    });
   }
   GetId(id: any) {
     this.id_LopHoc = id;

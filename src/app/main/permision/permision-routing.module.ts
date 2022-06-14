@@ -1,3 +1,4 @@
+import { RolesGuard } from 'src/app/core/guard/roles.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateComponent } from './create/create.component';
@@ -5,21 +6,26 @@ import { IndexComponent } from './index/index.component';
 import { UpdateComponent } from './update/update.component';
 const routes: Routes = [
   {
-    path: "index", component: IndexComponent,
+    path: 'index',
+    component: IndexComponent,
+    canActivate: [RolesGuard],
   },
   {
-    path: "create" , component: CreateComponent,
-  }, {
-    path: "update/:id" , component: UpdateComponent,
-  }
+    path: 'create',
+    component: CreateComponent,
+    canActivate: [RolesGuard],
+  },
+  {
+    path: 'update/:id',
+    component: UpdateComponent,
+    canActivate: [RolesGuard],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class PermisionRoutingModule {
-  constructor(
-
-    ){}
+  constructor() {}
 }
