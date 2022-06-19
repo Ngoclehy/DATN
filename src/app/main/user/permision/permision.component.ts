@@ -81,7 +81,9 @@ export class PermisionComponent implements OnInit {
             })
             Promise.all(requests).then((res: any) => {
               _this.notificationService.alertSuccessMS("Thông báo", "Bạn đã thêm thành công")
+            setTimeout(()=>{
               this.router.navigate(['/main/user/index'])
+            }, 500)
             })
           }
           else {

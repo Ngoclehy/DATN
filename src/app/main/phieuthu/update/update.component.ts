@@ -88,6 +88,7 @@ export class UpdateComponent implements OnInit {
                         phieuthu = { ...phieuthu, id_LopHoc: lopHoc.id_LopHoc };
                         this.phieuthu = phieuthu;
                         this.hocsinhId = this.phieuthu.id_HocSinh;
+                        this.onChangeLopHoc(this.phieuthu.id_LopHoc);
                       });
                   });
               });

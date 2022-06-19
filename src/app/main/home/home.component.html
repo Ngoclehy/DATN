@@ -103,15 +103,103 @@
   </div>
 </div>
 <div class="row">
-  <!-- Area Chart -->
-  <div class="col-xl-8 col-lg-7">
+  <div class="col-xl-6">
+    <div class="card py-4">
+      <div class="navbar bg-white">
+        <h5>Tìm kiếm học sinh chưa đóng tiền</h5>
+        <form class="d-flex ml-1">
+          <select
+            class="form-control control-color"
+            name="lophoc"
+            style="margin-right: 12px"
+            [(ngModel)]="lophoc"
+          >
+            <option value="">Chọn lớp</option>
+            <option *ngFor="let i of lophocs" [value]="i.id_LopHoc">
+              {{ i.tenLop }}
+            </option>
+          </select>
+
+          <input
+            class="form-control"
+            type="month"
+            placeholder="Nhập tên lớp học..."
+            name="Search"
+            aria-label="Search"
+            style="margin: 0 12px"
+            [ngModel]="date | date: 'yyyy-MM'"
+            [(ngModel)]="date"
+          />
+          <select
+            class="form-control control-color"
+            name="khoanthu"
+            style="margin-right: 12px"
+            [(ngModel)]="khoanthu"
+          >
+            <option value="">Chọn khoản thu</option>
+            <option *ngFor="let i of khoanthus" [value]="i.id_KhoanThu">
+              {{ i.tenKhoanThu }}
+            </option>
+          </select>
+
+          <button
+            class="btn btn-outline-success ml-2"
+            style="min-width: 100px"
+            type="button"
+            (click)="handleSearch()"
+          >
+            Tìm kiếm
+          </button>
+        </form>
+      </div>
+      <div class="pt-0 card-body">
+        <table class="table table-bordered" id="table1">
+          <thead>
+            <tr>
+              <th>Tên Học Sinh</th>
+              <th>Tên Lớp</th>
+              <th>Ngày Sinh</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let item of hocsinhList
+                  | paginate: { itemsPerPage: itemOnPage, currentPage: p }
+              "
+            >
+              <td>{{ item.hoTen }}</td>
+              <td>{{ item.lophoc }}</td>
+              <td>{{ item.namSinh | date: "dd-MM-yyyy" }}</td>
+            </tr>
+          </tbody>
+          <tfoot></tfoot>
+        </table>
+        <div
+          *ngIf="hocsinhList.length < 1"
+          class="alert alert-danger"
+          role="alert"
+        >
+          Không có học sinh nào!
+        </div>
+        <div class="paginate">
+          <pagination-controls
+            class="pull-right"
+            (pageChange)="p = $event"
+          ></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Line Chart -->
+  <div class="col-xl-6 col-lg-7">
     <div
       class="card shadow mb-4"
-      style="height: 500px; padding: 28px 24px 0 48px"
+      style="height: 500px; padding: 28px 24px 0 18px"
     >
       <!-- Card Header - Dropdown -->
       <h5>Biều đồ thống kê chi tiêu năm: {{ currentYear }}</h5>
-      <div class="card" style="width: 800px; height: 420px">
+      <div class="card" style="width: 580px; height: 420px">
         <p-chart type="line" [data]="basicData"></p-chart>
       </div>
     </div>

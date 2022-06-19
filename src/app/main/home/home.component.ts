@@ -1,3 +1,4 @@
+import { NotificationService } from './../../core/services/notification.service';
 import { DataService } from 'src/app/core/services/data.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private DataService: DataService) {}
+  constructor(
+    private DataService: DataService,
+    private NotificationService: NotificationService
+  ) {}
 
   basicData: any;
 
@@ -22,6 +26,105 @@ export class HomeComponent implements OnInit {
   tongtiendathu: any;
   tongtiendachi: any;
 
+  p: number = 1;
+  itemOnPage: number = 5;
+
+  lophoc: any = '';
+  date: any = new Date().getFullYear();
+  khoanthu: any = '';
+
+  lophocs: any = [];
+  khoanthus: any = [];
+  hocsinhs: any = [];
+  ctpts: any = [];
+  phieuthus: any = [];
+
+  hocsinhList: any = [];
+
+  ///
+  getAllLopHoc() {
+    this.DataService.GET('api/lophoc/getAll').subscribe((res) => {
+      this.lophocs = res;
+    });
+  }
+
+  getAllKhoanThu() {
+    this.DataService.GET('api/khoanthu/getAll').subscribe((res) => {
+      this.khoanthus = res;
+    });
+  }
+
+  getAllHocSinh() {
+    this.DataService.GET('api/hocsinh/getAll').subscribe((res) => {
+      this.hocsinhs = res;
+    });
+  }
+
+  getAllCTPT() {
+    this.DataService.GET('api/ctphieuthu/getAll').subscribe((res) => {
+      this.ctpts = res;
+    });
+  }
+
+  getLopHoc(idHocSinh) {
+    const hs = this.hocsinhs.find((e) => e.id_HocSinh == idHocSinh);
+    return this.lophocs.find((e) => e.id_LopHoc == hs.id_LopHoc).tenLop;
+  }
+
+  handleSearch() {
+    if (!this.lophoc || !this.date || !this.khoanthu) {
+      this.NotificationService.alertWarnMS(
+        'Thông báo',
+        'Vui lòng chọn đủ thông tin các trường.'
+      );
+      return;
+    }
+    if (this.date.split('-')[0] > new Date().getFullYear()) {
+      this.hocsinhList = [];
+    }
+    if (this.date.split('-')[0] == new Date().getFullYear()) {
+      if (this.date.split('-')[1] <= new Date().getMonth() + 1) {
+        this.DataService.GET('api/phieuthu/getAll').subscribe((res: any) => {
+          // lọc theo tháng
+          let phieuthus = res.filter((e) => {
+            return this.convertDateToMonth(e.ngayThu) == this.date;
+          });
+          // lọc theo lớp
+          phieuthus = phieuthus
+            .map((e) => ({
+              ...e,
+              lophoc: this.getLopHocByIdHocSinh(e.id_HocSinh),
+            }))
+            .filter((e) => e.lophoc == this.lophoc);
+          const idPhieuThus = phieuthus.map((e) => e.id_PhieuThu);
+
+          // lọc theo khoản thu
+          // tìm ra các học sinh đã đóng khoản thu này rồi
+          let ctpts = this.ctpts
+            .filter((e) => idPhieuThus.includes(e.id_PhieuThu))
+            .filter((e) => e.id_KhoanThu == this.khoanthu)
+            .map((e) => e.id_PhieuThu);
+          const hocsinhsdanop = res
+            .filter((e) => ctpts.includes(e.id_PhieuThu))
+            .map((e) => e.id_HocSinh);
+          const hocsinhchuanop = this.hocsinhs.filter(
+            (e) =>
+              e.id_LopHoc == this.lophoc &&
+              !hocsinhsdanop.includes(e.id_HocSinh)
+          );
+          this.hocsinhList = hocsinhchuanop.map((e) => {
+            return {
+              ...e,
+              lophoc: this.getLopHoc(e.id_HocSinh),
+            };
+          });
+        });
+      } else {
+        this.hocsinhList = [];
+      }
+    }
+  }
+  ///
   getSoLuongLopHoc() {
     this.DataService.GET('api/lophoc/getAll').subscribe((res: any) => {
       this.soluonglophoc = res.length;
@@ -165,12 +268,36 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  getCurrentMonth() {
+    const date = new Date();
+    const month =
+      String(date.getMonth() + 1).length == 1
+        ? `0${date.getMonth() + 1}`
+        : date.getMonth() + 1;
+    return `${date.getFullYear()}-${month}`;
+  }
+
+  convertDateToMonth(date) {
+    const splitDate = date.split('-');
+    splitDate.pop();
+    return splitDate.join('-');
+  }
+
+  getLopHocByIdHocSinh(id) {
+    const hocSinh = this.hocsinhs.find((e) => e.id_HocSinh == id);
+    return hocSinh.id_LopHoc;
+  }
   ngOnInit(): void {
+    this.date = this.getCurrentMonth();
     this.getSoLuongLopHoc();
     this.getSoLuongGiaoVien();
     this.getSoLuongHocSinh();
     this.getTongTienDaThu();
     this.getTongTienDaChi();
     this.getListPhieuThuChi();
+    this.getAllLopHoc();
+    this.getAllKhoanThu();
+    this.getAllHocSinh();
+    this.getAllCTPT();
   }
 }

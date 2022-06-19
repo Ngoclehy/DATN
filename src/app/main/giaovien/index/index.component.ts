@@ -16,26 +16,35 @@ export class IndexComponent implements OnInit {
   id_GiaoVien: any;
   handleSearch() {
     this.DataService.GET('api/giaovien/getAll').subscribe((res: any) => {
-      this.collection = [];
-      res.forEach((e: any) => {
-        if (e.hoTen.toLowerCase().includes(this.keySearch.toLowerCase())) {
-          this.collection.push(e);
+      this.DataService.GET('api/giaovien/getAll').subscribe(
+        (giaoviens: any) => {
+          this.DataService.GET('api/lophoc/getAll').subscribe((lops: any) => {
+            giaoviens.forEach((giaoviens: any) => {
+              giaoviens.lop = '';
+              lops.forEach((lop: any) => {
+                if (giaoviens.id_LopHoc == lop.id_LopHoc) {
+                  giaoviens.lop = lop.tenLop;
+                }
+              });
+            });
+            this.collection = giaoviens
+              .filter((e: any) => {
+                return e.hoTen
+                  .toLowerCase()
+                  .includes(this.keySearch.toLowerCase());
+              })
+              .map((e: any, i: any) => {
+                return {
+                  index: i,
+                  ...e,
+                };
+              });
+          });
         }
-      });
-      this.collection = this.collection.map((e: any, i: any) => {
-        return {
-          index: i,
-          id_GiaoVien: e.id_GiaoVien,
-          id: e.id,
-          hoTen: e.hoTen,
-          gioiTinh: e.gioiTinh,
-          diaChi: e.diaChi,
-          soDienThoai: e.soDienThoai,
-        };
-      });
-      console.log(this.collection);
+      );
     });
   }
+
   ngOnInit(): void {
     this.DataService.GET('api/giaovien/getAll').subscribe((giaoviens: any) => {
       this.DataService.GET('api/lophoc/getAll').subscribe((lops: any) => {

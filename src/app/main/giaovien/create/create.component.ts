@@ -32,7 +32,7 @@ export class CreateComponent implements OnInit {
         Validator.isPhoneNumber('#sdt'),
         Validator.isRequired('#diaChi'),
 
-        Validator.isRequired('#select_cat'),
+     //   Validator.isRequired('#select_cat'),
 
       ],
       onSubmit: (data: any) => {

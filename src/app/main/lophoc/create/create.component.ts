@@ -17,7 +17,7 @@ export class CreateComponent implements OnInit {
   private notiService:NotificationService,) { }
   hehocs: any=[]
   backPage(){
-    this.route.navigate(['/main/hehoc/index'])
+    this.route.navigate(['/main/lophoc/index'])
   }
   validate() {
     Validator({

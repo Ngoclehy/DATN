@@ -49,7 +49,7 @@ export class UpdateComponent implements OnInit {
         Validator.isRequired('#gioiTinh'),
         Validator.isRequired('#diaChi'),
         Validator.isPhoneNumber('#SoDienThoai'),
-        Validator.isRequired('#select_cat'),
+      //  Validator.isRequired('#select_cat'),
       ],
       onSubmit: (data: any) => {
         data = {

@@ -14,7 +14,7 @@
         <u style="color: #0dcaf0; cursor: pointer;" class="font-italic"> Bảng danh sách khoản thu</u>
       </div>
       <a class="pt-3 pb-1 col-3" routerLink="/main/khoanthu/create">
-        <button type="button" class=" btn btn-success"><i class="mr-2  fas fa-plus"></i>Thêm khoản thu</button>
+        <button  type="button" class=" btn btn-success"><i class="mr-2  fas fa-plus"></i>Thêm khoản thu</button>
       </a>
       <div class="navbar  bg-white">
 
@@ -33,9 +33,9 @@
 
         </div>
         <form class="d-flex">
-          <input class="form-control " type="search" [(ngModel)]="keySearch" placeholder="Search" name="Search"
+          <input class="form-control " type="search" [(ngModel)]="keySearch" placeholder="Nhập tên khoản thu" name="Search"
             aria-label="Search">
-          <button class="btn btn-outline-success ml-2" type="submit" (click)="handleSearch()">Search</button>
+          <button  style="min-width: 120px;" class="btn btn-outline-success ml-2" type="submit" (click)="handleSearch()">Tìm kiếm</button>
 
         </form>
       </div>
@@ -47,7 +47,7 @@
               <th>Tên khoản thu</th>
               <th>Số tiền</th>
               <th width="10%">
-                Action
+                Thao tác
               </th>
 
             </tr>

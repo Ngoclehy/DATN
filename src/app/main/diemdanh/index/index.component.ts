@@ -99,6 +99,11 @@ export class IndexComponent implements OnInit {
 
         return [...accumulator, element];
       }, [])
+      .sort((a: any, b: any) => {
+        const bDate: any = new Date(b.date);
+        const aDate: any = new Date(a.date);
+        return bDate - aDate;
+      })
       .map((e, i) => ({
         index: i + 1,
         idLopHoc: e.idLopHoc,

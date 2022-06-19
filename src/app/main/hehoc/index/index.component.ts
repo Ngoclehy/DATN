@@ -23,7 +23,7 @@ export class IndexComponent implements OnInit {
       (res: any) => {
         //this.collection = []
         this.collection =res.filter((hehoc: any) => {
-          return hehoc.tenHeHoc.toLowerCase().includes(this.keySearch.value.toLowerCase());
+          return hehoc.tenHeHoc.toLowerCase().includes(this.keySearch.toLowerCase());
         })
         this.collection = this.collection.map((hehoc: any, i: any) => {
           return {

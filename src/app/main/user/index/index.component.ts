@@ -17,21 +17,25 @@ export class IndexComponent implements OnInit {
   keySearch: any = ""
 
   handleSearch() {
-
-    this.DataService.GET('api/user/getAll').subscribe(
-      (res: any) => {
-        //this.collection = []
-        this.collection =res.filter((user: any) => {
-          return user.name.toLowerCase().includes(this.keySearch.value.toLowerCase());
+    this.DataService.GET('api/user/getAll').subscribe((res: any) => {
+      res.forEach((value: any) => {
+        value.subdata = value.subdata
+          .map((val: any) => {
+            return val.name;
+          })
+          .join(', ');
+      });
+      this.collection = res
+        .filter((user: any) => {
+          return user.name.toLowerCase().includes(this.keySearch.toLowerCase());
         })
-        this.collection = this.collection.map((user: any, i: any) => {
+        .map((user: any, i: any) => {
           return {
             index: i,
-          ...user
-          }
-        })
-      //  console.log(this.collection)
-      })
+            ...user,
+          };
+        });
+    });
   }
   ngOnInit(): void {
     this.getData();

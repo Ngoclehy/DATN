@@ -1,20 +1,20 @@
 <div class="main-content ">
   <div class="page-title">
-    <h3>Danh sách danh mục</h3>
+    <h3>Danh sách hệ học</h3>
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb breadcrumb-left">
-        <li class="breadcrumb-item"><a href="#">Quản lý danh mục</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Dánh sách danh mục</li>
+        <li class="breadcrumb-item"><a href="#">Quản lý hệ học</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Dánh sách hệ học</li>
       </ol>
     </nav>
   </div>
   <section class="section">
     <div class="card">
       <div class=" card-header bg-white">
-        <u style="color: #0dcaf0; cursor: pointer;" class="font-italic"> Bảng danh sách danh mục</u>
+        <u style="color: #0dcaf0; cursor: pointer;" class="font-italic"> Bảng danh sách hệ học</u>
       </div>
       <a class="pt-3 pb-1 col-3" [routerLink]="['/main/hehoc/create']">
-        <button type="button" class=" btn btn-success"><i class="mr-2  fas fa-plus"></i>Thêm danh mục</button>
+        <button type="button" class=" btn btn-success"><i class="mr-2  fas fa-plus"></i>Thêm hệ học</button>
       </a>
       <div class="navbar  bg-white">
 
@@ -33,9 +33,9 @@
 
         </div>
         <form class="d-flex">
-          <input class="form-control " type="search" [(ngModel)]="keySearch" placeholder="Search" name="Search"
+          <input class="form-control " type="search" [(ngModel)]="keySearch" placeholder="Nhập tên hệ học" name="Search"
             aria-label="Search">
-          <button class="btn btn-outline-success ml-2" type="submit" (click)="handleSearch()">Search</button>
+          <button style="min-width: 120px;" class="btn btn-outline-success ml-2" type="submit" (click)="handleSearch()">Tìm kiếm</button>
 
         </form>
       </div>
@@ -47,7 +47,7 @@
               <th>Tên Hệ Học</th>
 
               <th width="10%">
-                Action
+                Thao tác
               </th>
 
             </tr>

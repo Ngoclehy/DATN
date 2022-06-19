@@ -33,12 +33,12 @@
                     </select>
 
                 </div>
-                
+
                 <form class="d-flex">
                     <input type="date" (change)="filterDate(date.value)" #date name="" id="" class="form-control mr-3">
-                    <input class="form-control " type="search" [(ngModel)]="keySearch" placeholder="Search"
+                    <input class="form-control " type="search" [(ngModel)]="keySearch" placeholder="Tìm kiếm"
                         name="Search" aria-label="Search">
-                    <button class="btn btn-outline-success ml-2" type="submit" (click)="handleSearch()">Search</button>
+                    <button  style="min-width: 120px;" class="btn btn-outline-success ml-2" type="submit" (click)="handleSearch()">Tìm kiếm</button>
                 </form>
             </div>
             <div class="pt-0 card-body">
@@ -51,7 +51,7 @@
                             <th>Tổng tiền</th>
                             <th>Ngày đóng</th>
                             <th width="10%">
-                                Action
+                                Thao tác
                             </th>
 
                         </tr>

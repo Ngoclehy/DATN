@@ -35,7 +35,7 @@ export class IndexComponent implements OnInit {
       (res: any) => {
         //this.collection = []
         this.collection = res.filter((permision: any) => {
-          return permision.name.toLowerCase().includes(this.keySearch.value.toLowerCase());
+          return permision.name.toLowerCase().includes(this.keySearch.toLowerCase());
         })
         this.collection = this.collection.map((permision: any, i: any) => {
           return {
